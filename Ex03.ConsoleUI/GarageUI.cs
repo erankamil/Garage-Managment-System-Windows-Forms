@@ -20,8 +20,9 @@ namespace Ex03.ConsoleUI
                     if (!m_GarageManager.FindCustomer(licenceStr)) // in case false
                     {
                         GarageLogic.Vehicle vehicleToAdd = GarageLogic.VehicleCreator.Create(licenceStr, carTypeStr);
-                        string[] vehicleInfo = (vehicleToAdd as GarageLogic.Car).GetInfo();
-                        string[] vehicleValues = getVehicleInfo(vehicleInfo);
+                        List<string> vehicleInfo = vehicleToAdd.GetInfo();
+                        List<string> vehicleValues = getVehicleInfo(vehicleInfo);
+                        //vehicleToAdd.UpdateInfo();
                     }
                     break;
                 default:
@@ -32,15 +33,15 @@ namespace Ex03.ConsoleUI
 
         }
 
-        private string[] getVehicleInfo(string[] i_vehicleInfoStrs)
+        private List<string> getVehicleInfo(List<string> i_vehicleInfoStrs)
         {
-            string[] vehicleValues = new string[20];
-
-            for (int i = 0; i < i_vehicleInfoStrs.Length; i++)
-            {
+            List<string> vehicleValues = new List<string>();
+            for(int i = 0; i < i_vehicleInfoStrs.Count; i++)
+            { 
                 Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
-                vehicleValues[i] = Console.ReadLine();
+                vehicleValues.Add(Console.ReadLine());
             }
+
             return vehicleValues;
         }
 

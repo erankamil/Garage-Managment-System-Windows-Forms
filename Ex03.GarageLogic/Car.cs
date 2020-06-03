@@ -1,11 +1,12 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 
 namespace Ex03.GarageLogic
 {
     public class Car : Vehicle
     {
         private eColor m_Color;
-        private readonly int m_NumOfDoors;
+        private int m_NumOfDoors;
 
         public Car(string i_LicencePlate, EnergySource.eEnergyType i_Type) :
             base(i_LicencePlate, i_Type)
@@ -37,51 +38,24 @@ namespace Ex03.GarageLogic
 
         }
 
-        public string[] GetInfo()
+        public override List<string> GetInfo()
         {
-            string[] GetInfoStrs = new string[6];
-            string model = "Model Name";
-            GetInfoStrs[0] = model;
-            string currEnergy = "Current Energy";
-            GetInfoStrs[1] = currEnergy;
-            string wheelsManufacturer = "Wheels Manufacturer";
-            GetInfoStrs[2] = wheelsManufacturer;
-            string currAirPresure = "Current Wheel Air Pressure";
-            GetInfoStrs[3] = currAirPresure;
-            string color = "Color";
-            GetInfoStrs[4] = color;
-            string NumOfDoors = "Number Of Doors";
-            GetInfoStrs[5] = NumOfDoors;
-            return GetInfoStrs;
+            List<string> infoStrs = base.GetInfo();
+            infoStrs.Add("Color");
+            infoStrs.Add("Number Of Doors");
+            return infoStrs;
         }
 
-        public void UpdateInfo(object[] i_InfoArr)
+        public override void UpdateInfo(List<string> i_InfoStrs)
         {
-            string modelName = i_InfoArr[0].ToString();
-            base.Model = modelName;
-            float currentEnergy = float.Parse(i_InfoArr[1].ToString());
-            base.EnergySource.CurrScale = currentEnergy;
-            string wheelManufacturer = i_InfoArr[2].ToString();
-            base.Wheels[0].Manufacturer = base.Wheels[1].Manufacturer
-                = base.Wheels[2].Manufacturer = base.Wheels[3].Manufacturer = wheelManufacturer;
-            float firstWheelPreasure = float.Parse(i_InfoArr[3].ToString());
-            float secondWheelPreasure = float.Parse(i_InfoArr[4].ToString());
-            float thirdWheelPreasure = float.Parse(i_InfoArr[5].ToString());
-            float fourthWheelPreasure = float.Parse(i_InfoArr[6].ToString());
-            bool res1 = Enum.TryParse<Car.eColor>(i_InfoArr[7].ToString(), out Car.eColor color);
-            m_Color = color;
-            int numOfDoors = int.Parse(i_InfoArr[8].ToString());
+            base.UpdateInfo(i_InfoStrs);
+            int index = i_InfoStrs.LastIndexOf("Color");
+            if (Enum.TryParse<eColor>(i_InfoStrs[index++], out eColor res))
+            {
+                m_Color = res;
+            }
+            m_NumOfDoors = int.Parse(i_InfoStrs[index]);
         }
-
-
-        //public Car(Vehicle i_Base, eColor i_Color, int i_NumOfDoors, 
-        //    int i_FuelType, EnergySource i_Type): base(i_Base)
-        //{
-        //    m_Color = i_Color;
-        //    m_NumOfDoors = i_NumOfDoors;
-        //    Type type = i_Base.EnergySource.GetType();
-
-        //}
 
         public enum eColor
         {

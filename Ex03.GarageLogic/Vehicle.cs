@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 
 namespace Ex03.GarageLogic
 {
@@ -15,12 +16,6 @@ namespace Ex03.GarageLogic
             private string m_Manufacturer;
             private float m_CurrentAirPresure;
             private float m_MaxAirPresure;
-
-            //public Wheel(string i_Manufacturer, float i_AirPresure)
-            //{
-            //    m_Manufacturer = i_Manufacturer;
-            //    m_CurrentAirPresure = i_AirPresure;
-            //}
 
             public string Manufacturer
             {
@@ -83,16 +78,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-        //public Vehicle(string i_Model, string i_LicensePlate, float i_Energy,
-        //    eVehicleWheels i_NumOfWheels, float i_CurrScale, float i_MaxScale)
-        //{
-        //    m_Model = i_Model;
-        //    m_LicesncePlate = i_LicensePlate;
-        //    m_EnergyPercent = i_Energy;
-        //    m_Wheels = new Wheel[(int)i_NumOfWheels];
-        //    m_EnergySource = new EnergySource(i_CurrScale, i_MaxScale);
-        //}
-
         public Vehicle(Vehicle i_Vehicle)
         {
             m_Model = i_Vehicle.Model;
@@ -100,6 +85,31 @@ namespace Ex03.GarageLogic
             m_EnergyPercent = i_Vehicle.EnergyPercent;
             m_Wheels = i_Vehicle.m_Wheels;
             m_EnergySource = i_Vehicle.m_EnergySource;
+        }
+
+        public virtual List<string> GetInfo()
+        {
+            List<string> GetInfoStrs = new List<string>();
+            GetInfoStrs.Add("Model Name");
+            GetInfoStrs.Add("Current Energy");
+            GetInfoStrs.Add("Wheels Manufacturer");
+            for(int i = 0; i < m_Wheels.Length; i++)
+            {
+                GetInfoStrs.Add("Air preasure Wheel number " + (i+1).ToString());
+            }
+
+            return GetInfoStrs;
+        }
+
+        public virtual void UpdateInfo(List<string> i_InfoStrs)
+        {
+            m_Model = i_InfoStrs[0];
+            m_EnergySource.CurrScale = float.Parse(i_InfoStrs[1]);
+            for(int i = 0, j = 3; i < m_Wheels.Length; i++, j++)
+            {
+                m_Wheels[i].Manufacturer = i_InfoStrs[2];
+                m_Wheels[i].CurrentAirPresure = float.Parse(i_InfoStrs[j]);
+            }
         }
 
         public string Model
