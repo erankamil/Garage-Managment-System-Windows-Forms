@@ -4,29 +4,29 @@ namespace Ex03.GarageLogic
 {
     public class EnergySource
     {
-        private float m_CurrentScale;
-        private float m_MaxScale;
+        private float m_CurrentAmount;
+        private float m_MaxAmount;
         private eEnergyType m_Type;
 
-        //public EnergySource(float i_CurrentScale, float i_MaxScale)
+        //public EnergySource(float i_CurrentAmount, float i_MaxAmount)
         //{
-        //    m_CurrentScale = i_CurrentScale;
-        //    m_MaxScale = i_MaxScale;
+        //    m_CurrentAmount = i_CurrentAmount;
+        //    m_MaxAmount = i_MaxAmount;
         //}
 
         //public EnergySource(EnergySource i_EnergySource)
         //{
-        //    m_CurrentScale = i_EnergySource.m_CurrentScale;
-        //    m_MaxScale = i_EnergySource.m_MaxScale;
+        //    m_CurrentAmount = i_EnergySource.m_CurrentAmount;
+        //    m_MaxAmount = i_EnergySource.m_MaxAmount;
         //}
 
         public bool Load(float i_Amount)
         {
 
             bool isValid = true;
-            if (m_CurrentScale + i_Amount < m_MaxScale)
+            if (m_CurrentAmount + i_Amount < m_MaxAmount)
             {
-                m_CurrentScale += i_Amount;
+                m_CurrentAmount += i_Amount;
             }
             else
             {
@@ -53,27 +53,27 @@ namespace Ex03.GarageLogic
         //}
 
 
-        public float CurrScale
+        public float CurrAmount
         {
             get
             {
-                return m_CurrentScale;
+                return m_CurrentAmount;
             }
             set
             {
-                m_CurrentScale = value;
+                m_CurrentAmount = value;
             }
         }
 
-        public float MaxScale
+        public float MaxAmount
         {
             get
             {
-                return m_MaxScale;
+                return m_MaxAmount;
             }
             set
             {
-                m_MaxScale = value;
+                m_MaxAmount = value;
             }
         }
 

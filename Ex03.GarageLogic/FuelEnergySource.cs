@@ -22,7 +22,7 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return base.CurrScale;
+                return base.CurrAmount;
             }
         }
 
@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return base.MaxScale;
+                return base.MaxAmount;
             }
         }
 

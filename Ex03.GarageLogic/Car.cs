@@ -27,11 +27,11 @@ namespace Ex03.GarageLogic
             switch (i_Type)
             {
                 case EnergySource.eEnergyType.electric:
-                    base.EnergySource.MaxScale = (float)2.1;
+                    base.EnergySource.MaxAmount = (float)2.1;
                     break;
                 case EnergySource.eEnergyType.fuel:
                     (base.EnergySource as FuelEnergySource).FuelType = FuelEnergySource.eFuelType.Octan96;
-                    base.EnergySource.MaxScale = (float)60;
+                    base.EnergySource.MaxAmount = (float)60;
                     break;
                 default:
                     break;

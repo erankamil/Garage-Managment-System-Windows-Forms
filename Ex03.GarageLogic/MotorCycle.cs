@@ -52,16 +52,16 @@ namespace Ex03.GarageLogic
             infoStrs.Add("Engine capacity");
             return infoStrs;
         }
-        public override int UpdateInfo(List<string> i_InfoStrs)
-        {
-            int index = base.UpdateInfo(i_InfoStrs);
-            if (Enum.TryParse<eLicenseType>(i_InfoStrs[index++], out eLicenseType res))
-            {
-                m_LicenseType = res;
-            }
-            m_EngineCapacity = int.Parse(i_InfoStrs[index]);
-            return index;
-        }
+        //public override int UpdateInfo(List<string> i_InfoStrs)
+        //{
+        //    int index = base.UpdateInfo(i_InfoStrs);
+        //    if (Enum.TryParse<eLicenseType>(i_InfoStrs[index++], out eLicenseType res))
+        //    {
+        //        m_LicenseType = res;
+        //    }
+        //    m_EngineCapacity = int.Parse(i_InfoStrs[index]);
+        //    return index;
+        //}
         public enum eLicenseType
         {
             A = 1,

@@ -24,7 +24,6 @@ namespace Ex03.ConsoleUI
                         List<string> vehicleInfo = vehicleToAdd.GetInfo();
                         getVehicleInfo(vehicleToAdd, vehicleInfo);
                         getCustomerCardData(out customerName, out customerPhone);
-                        int lastIndexInList = vehicleToAdd.UpdateInfo(vehicleValues);
                         m_GarageManager.EnterVehicle(vehicleToAdd, customerName, customerPhone);
 
                     }
@@ -39,20 +38,20 @@ namespace Ex03.ConsoleUI
 
         private void getVehicleInfo(GarageLogic.Vehicle i_Vehicle, List<string> i_vehicleInfoStrs)
         {
-            List<string> vehicleValues = new List<string>();
             for (int i = 0; i < i_vehicleInfoStrs.Count; i++)
             {
 
                 try
                 {
                     Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
-                    vehicleValues.Add(Console.ReadLine());
-                    i_Vehicle.UpdateInfo(i_vehicleInfoStrs[i], i);
+                    string vehivcleValue = Console.ReadLine();
+                    i_Vehicle.UpdateInfo(vehivcleValue, i);
                 }
 
-                catch (NullReferenceException ec)
+                catch (GarageLogic.ValueOutOfRangeException ec)
                 {
                     Console.WriteLine(ec.Message);
+                    i--;
                 }
             }
         }
@@ -61,9 +60,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter license number:");
             o_LicenceStr = Console.ReadLine();
-            Console.WriteLine(@"Please enter car type (engine type, vehical type)
-etc: fuelCar (pay attention for upper and lower cases)
-etc: electricCar");
+            Console.WriteLine("Please enter car type (engine type, vehical type in one word)");
             o_CarTypeStr = Console.ReadLine();
         }
 

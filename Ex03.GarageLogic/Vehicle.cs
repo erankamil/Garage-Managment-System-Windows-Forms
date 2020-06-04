@@ -91,7 +91,7 @@ namespace Ex03.GarageLogic
         {
             List<string> GetInfoStrs = new List<string>();
             GetInfoStrs.Add("Model Name");
-            GetInfoStrs.Add("Current Energy");
+            GetInfoStrs.Add("Current Energy Amount");
             GetInfoStrs.Add("Wheels Manufacturer");
             for(int i = 0; i < m_Wheels.Length; i++)
             {
@@ -101,26 +101,27 @@ namespace Ex03.GarageLogic
             return GetInfoStrs;
         }
 
-        public virtual void UpdateInfo(string i_vehicleInfoStr, int i_Index)
+        public virtual void UpdateInfo(string i_VehicleInfoStr, int i_Index)
         {
-            if (i_vehicleInfoStr != null)
+            if (i_VehicleInfoStr != null)
             {
                 if (i_Index == 0)
                 {
-                     m_Model = i_vehicleInfoStr;
+                     m_Model = i_VehicleInfoStr;
                 }
                 else if (i_Index == 1)
                 {
                     float res;
-                    if (float.TryParse(i_vehicleInfoStr, out res))
+                    if (float.TryParse(i_VehicleInfoStr, out res))
                     {
-                        if (res >= 0 && res <= m_EnergySource.MaxScale)
+                        if (res >= 0 && res <= m_EnergySource.MaxAmount)
                         {
-                            m_EnergyPercent = res;
+                            m_EnergySource.CurrAmount = res;
+                            m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount);
                         }
                         else
                         {
-                            throw new ValueOutOfRangeException(i_vehicleInfoStr, 0, m_EnergySource.MaxScale);
+                            throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_EnergySource.MaxAmount);
                         }
                     }
                     else
@@ -131,7 +132,7 @@ namespace Ex03.GarageLogic
                 else // for each wheel , need to chagne manufacturer
                 {
                     float res;
-                    if (float.TryParse(i_vehicleInfoStr, out res))
+                    if (float.TryParse(i_VehicleInfoStr, out res))
                     {
                         if (res >= 0 && res <= m_Wheels[i_Index - 2].MaxAirPresure)
                         {
@@ -139,7 +140,7 @@ namespace Ex03.GarageLogic
                         }
                         else
                         {
-                            throw new ValueOutOfRangeException(i_vehicleInfoStr, 0, m_Wheels[i_Index - 2].MaxAirPresure);
+                            throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_Wheels[i_Index - 2].MaxAirPresure);
                         }
                     }
                     else
