@@ -61,7 +61,7 @@ for silver 4");
             {
                 if (string.IsNullOrEmpty(i_Value))
                 {
-                    throw new ArgumentNullException();
+                    throw new NullReferenceException();
                 }
                 else
                 {
@@ -105,7 +105,7 @@ for silver 4");
         {
             if (int.TryParse(i_Color, out int res))
             {
-                if (res >= (int)eColor.Red && res <= (int)eColor.White)
+                if (res >= (int)eColor.Red && res <= (int)eColor.Silver)
                 {
                     Enum.TryParse<eColor>(res.ToString(), out eColor color);
                     m_Color = color;
@@ -113,7 +113,7 @@ for silver 4");
                 else
                 {
                     throw new ValueOutOfRangeException(i_Color, (int)eColor.Red,
-                        (int)eColor.White);
+                        (int)eColor.Silver);
                 }
             }
             else

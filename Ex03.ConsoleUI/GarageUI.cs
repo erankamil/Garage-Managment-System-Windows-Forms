@@ -15,11 +15,11 @@ namespace Ex03.ConsoleUI
             switch (selection)
             {
                 case "1":
-                    string licenceStr, vehuicleTypeStr;
-                    getCustomerData(out licenceStr, out vehuicleTypeStr);
+                    string licenceStr;
+                    getCustomerLicenseNumber(out licenceStr);
                     if (!m_GarageManager.FindCustomer(licenceStr)) // in case false
                     {
-                        newCustomerActions(licenceStr, vehuicleTypeStr);
+                        newCustomerActions(licenceStr);
 
                     }
                     break;
@@ -29,25 +29,35 @@ namespace Ex03.ConsoleUI
 
         }
 
-        private void newCustomerActions(string i_LicenceStr, string i_CarTypeStr)
+        private void newCustomerActions(string i_LicenceStr)
         {
             string customerName, customerPhone;
-            GarageLogic.Vehicle vehicleToAdd = prepareCar(i_LicenceStr, i_CarTypeStr);
+            GarageLogic.Vehicle vehicleToAdd = prepareCar(i_LicenceStr);
             List<string> vehicleInfo = vehicleToAdd.GetInfo();
             getVehicleInfo(vehicleToAdd, vehicleInfo);
             getCustomerCardData(out customerName, out customerPhone);
             m_GarageManager.EnterVehicle(vehicleToAdd, customerName, customerPhone);
         }
 
-        private GarageLogic.Vehicle prepareCar(string i_LicenseNumber , string i_VehicleType)
+        private GarageLogic.Vehicle prepareCar(string i_LicenseNumber)
         {
             GarageLogic.Vehicle vehicleToAdd = null;
+            string vehicleType;
             bool isValid = true; ;
             do
             {
+                Console.WriteLine(@"Please choose you vehicle type:");
+                List<string> vehicleTypes = GarageLogic.eVehicleType.GetInfo();
+                foreach (string type in vehicleTypes)
+                {
+                    Console.WriteLine(type.ToString());
+                }
+               vehicleType = Console.ReadLine();
+
                 try
                 {
-                    vehicleToAdd = GarageLogic.VehicleCreator.Create(i_LicenseNumber, i_VehicleType);
+                    vehicleToAdd = GarageLogic.VehicleCreator.Create(i_LicenseNumber, vehicleType);
+                    isValid = true;
                 }
                 catch (GarageLogic.ValueOutOfRangeException ec)
                 {
@@ -85,12 +95,6 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(ec.Message);
                     i--;
                 }
-                catch(ArgumentNullException ec)
-                {
-                    Console.WriteLine(ec.Message);
-                    i--;
-
-                }
                 catch(NullReferenceException ec)
                 {
                     Console.WriteLine(ec.Message);
@@ -110,7 +114,7 @@ namespace Ex03.ConsoleUI
             return isValid;
         }
 
-        private void getCustomerData(out string o_LicenceStr, out string o_CarTypeStr)
+        private void getCustomerLicenseNumber(out string o_LicenceStr)
         {
             Console.WriteLine("Please enter license number:");
             do
@@ -118,14 +122,6 @@ namespace Ex03.ConsoleUI
                 o_LicenceStr = Console.ReadLine();
             }
             while (!checkValidLicense(o_LicenceStr));
-
-            Console.WriteLine(@"Please choose you vehicle type:");
-            List<string> vehicleTypes = GarageLogic.eVehicleType.GetInfo();
-            foreach(string type in vehicleTypes)
-            {
-                Console.WriteLine(type.ToString());
-            }
-             o_CarTypeStr = Console.ReadLine();
         }
 
 
