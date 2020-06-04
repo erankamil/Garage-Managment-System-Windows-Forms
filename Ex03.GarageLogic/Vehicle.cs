@@ -10,54 +10,42 @@ namespace Ex03.GarageLogic
         private float m_EnergyPercent;
         private Wheel[] m_Wheels;
         private EnergySource m_EnergySource;
+        private string m_WheelsManufacturer;
 
         public class Wheel
         {
-            private string m_Manufacturer;
-            private float m_CurrentAirPresure;
-            private float m_MaxAirPresure;
+            private float m_CurrentAirPressure;
+            private float m_MaxAirPressure;
 
-            public string Manufacturer
+
+            public float CurrentAirPressure
             {
                 get
                 {
-                    return m_Manufacturer;
+                    return m_CurrentAirPressure;
                 }
 
                 set
                 {
-                    m_Manufacturer = value;
+                    m_CurrentAirPressure = value;
                 }
             }
 
-            public float CurrentAirPresure
+            public float MaxAirPressure
             {
                 get
                 {
-                    return m_CurrentAirPresure;
-                }
-
-                set
-                {
-                    m_CurrentAirPresure = value;
-                }
-            }
-
-            public float MaxAirPresure
-            {
-                get
-                {
-                    return m_MaxAirPresure;
+                    return m_MaxAirPressure;
                 }
                 set
                 {
-                    m_MaxAirPresure = value;
+                    m_MaxAirPressure = value;
                 }
             }
             
             public void AirBlowing(float i_AirMount)
             {
-                m_CurrentAirPresure += i_AirMount;
+                m_CurrentAirPressure += i_AirMount;
             }
         }
 
@@ -92,9 +80,10 @@ namespace Ex03.GarageLogic
             List<string> GetInfoStrs = new List<string>();
             GetInfoStrs.Add("Model Name");
             GetInfoStrs.Add("Current Energy Amount");
-            GetInfoStrs.Add("Wheels Manufacturer");
-            for(int i = 0; i < m_Wheels.Length; i++)
+            GetInfoStrs.Add("Wheels Manufacturer ");
+            for (int i = 0; i < m_Wheels.Length; i++)
             {
+              
                 GetInfoStrs.Add("Air preasure Wheel number " + (i+1).ToString());
             }
 
@@ -103,55 +92,70 @@ namespace Ex03.GarageLogic
 
         public virtual void UpdateInfo(string i_VehicleInfoStr, int i_Index)
         {
-            if (i_VehicleInfoStr != null)
+            if(string.IsNullOrEmpty(i_VehicleInfoStr))
             {
-                if (i_Index == 0)
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                switch (i_Index)
                 {
-                     m_Model = i_VehicleInfoStr;
+                    case (int)eVehicleInfo.ModelType:
+                        m_Model = i_VehicleInfoStr;
+                        break;
+                    case (int)eVehicleInfo.CurrentPersent:
+                        updateEnergyPersent(i_VehicleInfoStr);
+                        break;
+                    case (int)eVehicleInfo.WheelsManufacturer:
+                        m_WheelsManufacturer = i_VehicleInfoStr;
+                        break;
+                    default:
+                        updateWheelAirPressure(i_VehicleInfoStr, i_Index);
+                        break;
                 }
-                else if (i_Index == 1)
+
+            }
+
+        }
+
+        private void updateWheelAirPressure(string i_VehicleInfoStr, int i_Index)
+        {
+            float res;
+            if (float.TryParse(i_VehicleInfoStr, out res))
+            {
+                if (res >= 0 && res <= m_Wheels[i_Index - 3].MaxAirPressure)
                 {
-                    float res;
-                    if (float.TryParse(i_VehicleInfoStr, out res))
-                    {
-                        if (res >= 0 && res <= m_EnergySource.MaxAmount)
-                        {
-                            m_EnergySource.CurrAmount = res;
-                            m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount);
-                        }
-                        else
-                        {
-                            throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_EnergySource.MaxAmount);
-                        }
-                    }
-                    else
-                    {
-                        throw new NullReferenceException("Current scale must be a non negative number");
-                    }
+                    m_Wheels[i_Index - 3].CurrentAirPressure = res;
                 }
-                else // for each wheel , need to chagne manufacturer
+                else
                 {
-                    float res;
-                    if (float.TryParse(i_VehicleInfoStr, out res))
-                    {
-                        if (res >= 0 && res <= m_Wheels[i_Index - 2].MaxAirPresure)
-                        {
-                            m_Wheels[i_Index - 2].CurrentAirPresure = res;
-                        }
-                        else
-                        {
-                            throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_Wheels[i_Index - 2].MaxAirPresure);
-                        }
-                    }
-                    else
-                    {
-                        throw new NullReferenceException("Wheel air preasure must be non negative number");
-                    }
+                    throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_Wheels[i_Index - 3].MaxAirPressure);
                 }
             }
-            else // string input is null
+            else
             {
-                throw new NullReferenceException();
+                throw new NullReferenceException("Wheel air preasure must be non negative number");
+            }
+        }
+
+        private void updateEnergyPersent(string i_VehicleInfoStr)
+        {
+            float res;
+            if (float.TryParse(i_VehicleInfoStr, out res))
+            {
+                if (res >= 0 && res <= m_EnergySource.MaxAmount)
+                {
+                    m_EnergySource.CurrAmount = res;
+                    m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount);
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_EnergySource.MaxAmount);
+                }
+            }
+            else
+            {
+                throw new NullReferenceException("Current scale must be a non negative number");
             }
         }
 
@@ -214,6 +218,12 @@ namespace Ex03.GarageLogic
             MotorCycle = 2,
             Car = 4,
             Truck = 16
+        }
+        public enum eVehicleInfo
+        {
+            ModelType = 0,
+            CurrentPersent,
+            WheelsManufacturer
         }
 
     }
