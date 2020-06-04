@@ -15,14 +15,18 @@ namespace Ex03.ConsoleUI
             switch (selection)
             {
                 case "1":
-                    string licenceStr, carTypeStr;
-                    getCustomerData(out licenceStr, out carTypeStr);
+                    string licenceStr, vehuicleTypeStr;
+                    getCustomerData(out licenceStr, out vehuicleTypeStr);
                     if (!m_GarageManager.FindCustomer(licenceStr)) // in case false
                     {
-                        GarageLogic.Vehicle vehicleToAdd = GarageLogic.VehicleCreator.Create(licenceStr, carTypeStr);
+                        string customerName, customerPhone;
+                        GarageLogic.Vehicle vehicleToAdd = GarageLogic.VehicleCreator.Create(licenceStr, vehuicleTypeStr);
                         List<string> vehicleInfo = vehicleToAdd.GetInfo();
-                        List<string> vehicleValues = getVehicleInfo(vehicleInfo);
-                        //vehicleToAdd.UpdateInfo();
+                        getVehicleInfo(vehicleToAdd, vehicleInfo);
+                        getCustomerCardData(out customerName, out customerPhone);
+                        int lastIndexInList = vehicleToAdd.UpdateInfo(vehicleValues);
+                        m_GarageManager.EnterVehicle(vehicleToAdd, customerName, customerPhone);
+
                     }
                     break;
                 default:
@@ -33,24 +37,43 @@ namespace Ex03.ConsoleUI
 
         }
 
-        private List<string> getVehicleInfo(List<string> i_vehicleInfoStrs)
+        private void getVehicleInfo(GarageLogic.Vehicle i_Vehicle, List<string> i_vehicleInfoStrs)
         {
             List<string> vehicleValues = new List<string>();
-            for(int i = 0; i < i_vehicleInfoStrs.Count; i++)
-            { 
-                Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
-                vehicleValues.Add(Console.ReadLine());
-            }
+            for (int i = 0; i < i_vehicleInfoStrs.Count; i++)
+            {
 
-            return vehicleValues;
+                try
+                {
+                    Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
+                    vehicleValues.Add(Console.ReadLine());
+                    i_Vehicle.UpdateInfo(i_vehicleInfoStrs[i], i);
+                }
+
+                catch (NullReferenceException ec)
+                {
+                    Console.WriteLine(ec.Message);
+                }
+            }
         }
 
         private void getCustomerData(out string o_LicenceStr, out string o_CarTypeStr)
         {
             Console.WriteLine("Please enter license number:");
             o_LicenceStr = Console.ReadLine();
-            Console.WriteLine("Please enter car type:");
+            Console.WriteLine(@"Please enter car type (engine type, vehical type)
+etc: fuelCar (pay attention for upper and lower cases)
+etc: electricCar");
             o_CarTypeStr = Console.ReadLine();
+        }
+
+        private void getCustomerCardData(out string i_Name, out string i_Phone)
+        {
+            Console.WriteLine("Last details before entering your car:");
+            Console.Write("Your name: ");
+            i_Name = Console.ReadLine();
+            Console.Write("Your phone number: ");
+            i_Phone = Console.ReadLine();
         }
 
         private void printMenu()

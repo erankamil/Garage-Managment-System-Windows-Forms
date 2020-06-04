@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
                     m_MaxAirPresure = value;
                 }
             }
-
+            
             public void AirBlowing(float i_AirMount)
             {
                 m_CurrentAirPresure += i_AirMount;
@@ -101,14 +101,56 @@ namespace Ex03.GarageLogic
             return GetInfoStrs;
         }
 
-        public virtual void UpdateInfo(List<string> i_InfoStrs)
+        public virtual void UpdateInfo(string i_vehicleInfoStr, int i_Index)
         {
-            m_Model = i_InfoStrs[0];
-            m_EnergySource.CurrScale = float.Parse(i_InfoStrs[1]);
-            for(int i = 0, j = 3; i < m_Wheels.Length; i++, j++)
+            if (i_vehicleInfoStr != null)
             {
-                m_Wheels[i].Manufacturer = i_InfoStrs[2];
-                m_Wheels[i].CurrentAirPresure = float.Parse(i_InfoStrs[j]);
+                if (i_Index == 0)
+                {
+                     m_Model = i_vehicleInfoStr;
+                }
+                else if (i_Index == 1)
+                {
+                    float res;
+                    if (float.TryParse(i_vehicleInfoStr, out res))
+                    {
+                        if (res >= 0 && res <= m_EnergySource.MaxScale)
+                        {
+                            m_EnergyPercent = res;
+                        }
+                        else
+                        {
+                            throw new ValueOutOfRangeException(i_vehicleInfoStr, 0, m_EnergySource.MaxScale);
+                        }
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Current scale must be a non negative number");
+                    }
+                }
+                else // for each wheel , need to chagne manufacturer
+                {
+                    float res;
+                    if (float.TryParse(i_vehicleInfoStr, out res))
+                    {
+                        if (res >= 0 && res <= m_Wheels[i_Index - 2].MaxAirPresure)
+                        {
+                            m_Wheels[i_Index - 2].CurrentAirPresure = res;
+                        }
+                        else
+                        {
+                            throw new ValueOutOfRangeException(i_vehicleInfoStr, 0, m_Wheels[i_Index - 2].MaxAirPresure);
+                        }
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Wheel air preasure must be non negative number");
+                    }
+                }
+            }
+            else // string input is null
+            {
+                throw new NullReferenceException();
             }
         }
 

@@ -8,6 +8,14 @@ namespace Ex03.GarageLogic
         private eCarState m_CarState;
         private Vehicle m_Vehicle;
 
+        public CustomerCard(Vehicle i_Vehicle, string i_Name, string i_Phone)
+        {
+            m_Vehicle = i_Vehicle;
+            m_Name = i_Name;
+            m_Phone = i_Phone;
+            m_CarState = eCarState.inRepair;
+        }
+
         public enum eCarState
         {
             inRepair = 1,

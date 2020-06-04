@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
     {
         private eColor m_Color;
         private int m_NumOfDoors;
+        private int m_startIndexInfo;
 
         public Car(string i_LicencePlate, EnergySource.eEnergyType i_Type) :
             base(i_LicencePlate, i_Type)
@@ -35,7 +36,7 @@ namespace Ex03.GarageLogic
                 default:
                     break;
             }
-
+            m_startIndexInfo = base.Wheels.Length + 2;
         }
 
         public override List<string> GetInfo()
@@ -46,15 +47,44 @@ namespace Ex03.GarageLogic
             return infoStrs;
         }
 
-        public override void UpdateInfo(List<string> i_InfoStrs)
+        public override void UpdateInfo(string i_Value, int i_Index)
         {
-            base.UpdateInfo(i_InfoStrs);
-            int index = i_InfoStrs.LastIndexOf("Color");
-            if (Enum.TryParse<eColor>(i_InfoStrs[index++], out eColor res))
+            if (i_Index < m_startIndexInfo) // base info
             {
-                m_Color = res;
+                base.UpdateInfo(i_Value, i_Index);
             }
-            m_NumOfDoors = int.Parse(i_InfoStrs[index]);
+            else
+            {
+                if(i_Value != null)
+                {
+                    if (i_Index == m_startIndexInfo)
+                    {
+                        if (Enum.TryParse<eColor>(i_Value, out eColor res))
+                        {
+                            m_Color = res;
+                        }
+                        else
+                        {
+                            throw new NullReferenceException("Color is not supported");
+                        }
+                    }
+                    else
+                    {
+                        if (int.TryParse(i_Value, out int numOfDoors)) // need to change to enum...
+                        {
+                            m_NumOfDoors = numOfDoors;
+                        }
+                        else
+                        {
+                            throw new NullReferenceException("Number of door should be 2,3,4,5");
+                        }
+                    }
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }
+            }
         }
 
         public enum eColor

@@ -23,5 +23,12 @@ namespace Ex03.GarageLogic
             }
             return isExist;
         }
+
+        public void EnterVehicle(Vehicle i_Vehicle, string i_Name, string i_Phone)
+        {
+            CustomerCard cutomerToAdd = new CustomerCard(i_Vehicle, i_Name, i_Phone);
+            string key = cutomerToAdd.Vehicle.LicesncePlate;
+            m_CostumerBook.Add(key, cutomerToAdd);
+        }
     }
 }

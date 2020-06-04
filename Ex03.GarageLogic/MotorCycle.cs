@@ -1,11 +1,12 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 
 namespace Ex03.GarageLogic
 {
     public class MotorCycle : Vehicle
     {
         private eLicenseType m_LicenseType;
-        private readonly int m_EngineCapacity;
+        private int m_EngineCapacity;
         private EnergySource m_EnergySourceType;
 
         public MotorCycle(Vehicle i_Base, eLicenseType i_LicenseType, int i_FuelType) : base(i_Base)
@@ -44,7 +45,23 @@ namespace Ex03.GarageLogic
             }
         }
 
-
+        public override List<string> GetInfo()
+        {
+            List<string> infoStrs = base.GetInfo();
+            infoStrs.Add("Licence Type");
+            infoStrs.Add("Engine capacity");
+            return infoStrs;
+        }
+        public override int UpdateInfo(List<string> i_InfoStrs)
+        {
+            int index = base.UpdateInfo(i_InfoStrs);
+            if (Enum.TryParse<eLicenseType>(i_InfoStrs[index++], out eLicenseType res))
+            {
+                m_LicenseType = res;
+            }
+            m_EngineCapacity = int.Parse(i_InfoStrs[index]);
+            return index;
+        }
         public enum eLicenseType
         {
             A = 1,
