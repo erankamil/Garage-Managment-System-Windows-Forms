@@ -50,14 +50,13 @@ namespace Ex03.GarageLogic
                 m_FuelType = value;
             }
         }
+    }
 
-        public enum eFuelType
-        {
-            Octan95 = 95,
-            Octan96 = 96,
-            Octan98 = 98,
-            Soler = 100
-        }
-
+    public enum eFuelType
+    {
+        Octan95 = 95,
+        Octan96 = 96,
+        Octan98 = 98,
+        Soler = 100
     }
 }

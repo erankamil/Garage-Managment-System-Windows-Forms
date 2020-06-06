@@ -16,13 +16,6 @@ namespace Ex03.GarageLogic
             m_CarState = eCarState.inRepair;
         }
 
-        public enum eCarState
-        {
-            inRepair = 1,
-            repaired,
-            paid
-        }
-
         public Vehicle Vehicle
         {
             get
@@ -30,6 +23,12 @@ namespace Ex03.GarageLogic
                 return m_Vehicle;
             }
         }
+    }
+    public enum eCarState
+    {
+        inRepair = 1,
+        repaired,
+        paid
     }
 
 }

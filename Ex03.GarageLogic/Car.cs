@@ -43,10 +43,10 @@ namespace Ex03.GarageLogic
         {
             List<string> infoStrs = base.GetInfo();
             infoStrs.Add(@"Color options:
-for red  1
-for white  2
-for black  3
-for silver 4");
+Red  1
+White  2
+Black  3
+Silver 4");
             infoStrs.Add("Number Of Doors");
             return infoStrs;
         }

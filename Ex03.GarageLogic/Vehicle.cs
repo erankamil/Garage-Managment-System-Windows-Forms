@@ -113,9 +113,7 @@ namespace Ex03.GarageLogic
                         updateWheelAirPressure(i_VehicleInfoStr, i_Index);
                         break;
                 }
-
             }
-
         }
 
         private void updateWheelAirPressure(string i_VehicleInfoStr, int i_Index)
@@ -146,7 +144,7 @@ namespace Ex03.GarageLogic
                 if (res >= 0 && res <= m_EnergySource.MaxAmount)
                 {
                     m_EnergySource.CurrAmount = res;
-                    m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount);
+                    m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount)*100;
                 }
                 else
                 {
@@ -212,22 +210,21 @@ namespace Ex03.GarageLogic
                 m_Wheels = value;
             }
         }
-
-        public enum eVehicleWheels
-        {
-            MotorCycle = 2,
-            Car = 4,
-            Truck = 16
-        }
-        public enum eVehicleInfo
-        {
-            ModelType = 0,
-            CurrentPersent,
-            WheelsManufacturer
-        }
-
     }
 
+    public enum eVehicleWheels
+    {
+        MotorCycle = 2,
+        Car = 4,
+        Truck = 16
+    }
+
+    public enum eVehicleInfo
+    {
+        ModelType = 0,
+        CurrentPersent,
+        WheelsManufacturer
+    }
 
 }
 

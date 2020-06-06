@@ -20,7 +20,6 @@ namespace Ex03.ConsoleUI
                     if (!m_GarageManager.FindCustomer(licenceStr)) // in case false
                     {
                         newCustomerActions(licenceStr);
-
                     }
                     break;
                 default:
@@ -46,7 +45,7 @@ namespace Ex03.ConsoleUI
             bool isValid = true; ;
             do
             {
-                Console.WriteLine(@"Please choose you vehicle type:");
+                Console.WriteLine("Please choose you vehicle type:");
                 List<string> vehicleTypes = GarageLogic.eVehicleType.GetInfo();
                 foreach (string type in vehicleTypes)
                 {
