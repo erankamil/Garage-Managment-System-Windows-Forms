@@ -49,15 +49,15 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public Vehicle(string i_LicesncePlate, EnergySource.eEnergyType i_SouceType)
+        public Vehicle(string i_LicesncePlate, eEnergyType i_SouceType)
         {
             m_LicesncePlate = i_LicesncePlate;
             switch (i_SouceType)
             {
-                case EnergySource.eEnergyType.electric:
+                case eEnergyType.Electric:
                     m_EnergySource = new ElectricEnergySource();
                     break;
-                case EnergySource.eEnergyType.fuel:
+                case  eEnergyType.Fuel:
                     m_EnergySource = new FuelEnergySource();
                     break;
                 default:
@@ -92,9 +92,9 @@ namespace Ex03.GarageLogic
 
         public virtual void UpdateInfo(string i_VehicleInfoStr, int i_Index)
         {
-            if(string.IsNullOrEmpty(i_VehicleInfoStr))
+            if(string.IsNullOrEmpty(i_VehicleInfoStr) || string.IsNullOrWhiteSpace(i_VehicleInfoStr))
             {
-                throw new ArgumentNullException();
+                throw new ArgumentException();
             }
             else
             {
@@ -116,6 +116,21 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public void InitializeWheels(float i_MaxAirPressure, eVehicleWheels i_NumOfWheels)
+        {
+            m_Wheels= new Wheel[(int)i_NumOfWheels];
+            for (int i = 0; i < (int)i_NumOfWheels; i++)
+            {
+               m_Wheels[i] = new Wheel();
+            }
+
+            foreach (Wheel wheel in m_Wheels)
+            {
+
+                wheel.MaxAirPressure = i_MaxAirPressure;
+            }
+        }
+
         private void updateWheelAirPressure(string i_VehicleInfoStr, int i_Index)
         {
             float res;
@@ -132,7 +147,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new NullReferenceException("Wheel air preasure must be non negative number");
+                throw new FormatException("Wheel air preasure must be non negative number");
             }
         }
 
@@ -153,7 +168,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new NullReferenceException("Current scale must be a non negative number");
+                throw new FormatException("Current scale must be a non negative number");
             }
         }
 

@@ -46,12 +46,12 @@ namespace Ex03.ConsoleUI
             do
             {
                 Console.WriteLine("Please choose you vehicle type:");
-                List<string> vehicleTypes = GarageLogic.eVehicleType.GetInfo();
+                List<string> vehicleTypes = GarageLogic.VehicleCreator.GetInfo();
                 foreach (string type in vehicleTypes)
                 {
                     Console.WriteLine(type.ToString());
                 }
-               vehicleType = Console.ReadLine();
+                vehicleType = Console.ReadLine();
 
                 try
                 {
@@ -63,7 +63,12 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(ec.Message);
                     isValid = false;
                 }
-                catch (NullReferenceException ec)
+                catch (FormatException ec)
+                {
+                    Console.WriteLine(ec.Message);
+                    isValid = false;
+                }
+                catch (ArgumentException ec)
                 {
                     Console.WriteLine(ec.Message);
                     isValid = false;
@@ -77,11 +82,10 @@ namespace Ex03.ConsoleUI
             for (int i = 0; i < i_vehicleInfoStrs.Count; i++)
             {
                 string vehicleValue;
-                Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
                 do
                 {
-                     vehicleValue = Console.ReadLine();
-
+                    Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
+                    vehicleValue = Console.ReadLine();
                 }
                 while (!checkValidValue(vehicleValue));
 
@@ -94,7 +98,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(ec.Message);
                     i--;
                 }
-                catch(NullReferenceException ec)
+                catch (ArgumentException ec)
                 {
                     Console.WriteLine(ec.Message);
                     i--;
@@ -105,7 +109,7 @@ namespace Ex03.ConsoleUI
         private bool checkValidValue(string i_vehicleValue)
         {
             bool isValid = true;
-            if(string.IsNullOrEmpty(i_vehicleValue))
+            if (string.IsNullOrEmpty(i_vehicleValue) || string.IsNullOrWhiteSpace(i_vehicleValue))
             {
                 isValid = false;
                 Console.WriteLine("Invalid value");

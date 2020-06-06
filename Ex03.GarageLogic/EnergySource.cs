@@ -92,7 +92,7 @@ namespace Ex03.GarageLogic
     }
     public enum eEnergyType
     {
-        electric = 1,
-        fuel = 2
+        Electric = 1,
+        Fuel = 2
     }
 }

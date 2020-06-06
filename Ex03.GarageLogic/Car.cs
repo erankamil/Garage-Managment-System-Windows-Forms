@@ -7,61 +7,53 @@ namespace Ex03.GarageLogic
     {
         private eColor m_Color;
         private eNumOfDoors m_NumOfDoors;
-        private int m_startIndexInfo;
+        private const int k_StartIndexInfo = 7;
+        private const float k_ElectricMaxEnregy = 2.1f;
+        private const float k_MaxWheelAirPressure = 32f;
+        private const float k_FuelMaxTank = 60f;
 
-        public Car(string i_LicencePlate, EnergySource.eEnergyType i_Type) :
+        public Car(string i_LicencePlate, eEnergyType i_Type) :
             base(i_LicencePlate, i_Type)
         {
-            base.Wheels = new Wheel[(int)Vehicle.eVehicleWheels.Car];
-            for (int i = 0; i < (int)Vehicle.eVehicleWheels.Car; i++)
-            {
-                base.Wheels[i] = new Wheel();
-            }
-
-            foreach (Wheel wheel in base.Wheels)
-            {
-
-                wheel.MaxAirPressure = 32;
-            }
+            base.InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Car);
 
             switch (i_Type)
             {
-                case EnergySource.eEnergyType.electric:
-                    base.EnergySource.MaxAmount = (float)2.1;
+                case eEnergyType.Electric:
+                    base.EnergySource.MaxAmount = k_ElectricMaxEnregy;
                     break;
-                case EnergySource.eEnergyType.fuel:
-                    (base.EnergySource as FuelEnergySource).FuelType = FuelEnergySource.eFuelType.Octan96;
-                    base.EnergySource.MaxAmount = (float)60;
+                case eEnergyType.Fuel:
+                    (base.EnergySource as FuelEnergySource).FuelType = eFuelType.Octan96;
+                    base.EnergySource.MaxAmount =k_FuelMaxTank;
                     break;
                 default:
                     break;
             }
-            m_startIndexInfo = base.Wheels.Length + 2;
         }
 
         public override List<string> GetInfo()
         {
             List<string> infoStrs = base.GetInfo();
             infoStrs.Add(@"Color options:
-Red  1
-White  2
-Black  3
-Silver 4");
+1) Red
+2) White
+3) Black
+4) Silver");
             infoStrs.Add("Number Of Doors");
             return infoStrs;
         }
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if (i_Index <= m_startIndexInfo)
+            if (i_Index < k_StartIndexInfo)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }
             else
             {
-                if (string.IsNullOrEmpty(i_Value))
+                if (string.IsNullOrEmpty(i_Value) || string.IsNullOrWhiteSpace(i_Value))
                 {
-                    throw new NullReferenceException();
+                    throw new ArgumentException();
                 }
                 else
                 {
@@ -79,7 +71,7 @@ Silver 4");
                 }
             }
         }
-
+        
         private void updateNumOfDoors(string i_NumOfDoors)
         {
             if (int.TryParse(i_NumOfDoors, out int res))
@@ -97,7 +89,7 @@ Silver 4");
             }
             else
             {
-                throw new NullReferenceException("Invalid Numbe of doors");
+                throw new FormatException("Invalid Numbe of doors");
             }
         }
 
@@ -118,7 +110,7 @@ Silver 4");
             }
             else
             {
-                throw new NullReferenceException("Color is not supported");
+                throw new FormatException("Color is not supported");
             }
         }
 

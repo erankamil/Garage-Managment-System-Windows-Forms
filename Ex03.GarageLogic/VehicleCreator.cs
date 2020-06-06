@@ -18,10 +18,16 @@ namespace Ex03.GarageLogic
                     switch (vehicleType)
                     {
                         case eType.ElectricCar:
-                            vehicleToCreate = new Car(i_LicencePlate, EnergySource.eEnergyType.electric);
+                            vehicleToCreate = new Car(i_LicencePlate, eEnergyType.Electric);
                             break;
                         case eType.FuelCar:
-                            vehicleToCreate = new Car(i_LicencePlate, EnergySource.eEnergyType.fuel);
+                            vehicleToCreate = new Car(i_LicencePlate, eEnergyType.Fuel);
+                            break;
+                        case eType.ElectricMotorCycle:
+                            vehicleToCreate = new MotorCycle(i_LicencePlate, eEnergyType.Electric);
+                            break;
+                        case eType.FuelMotorCycle:
+                            vehicleToCreate = new MotorCycle(i_LicencePlate, eEnergyType.Fuel);
                             break;
                         default:
                             break;
