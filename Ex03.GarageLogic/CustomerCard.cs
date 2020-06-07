@@ -16,11 +16,37 @@ namespace Ex03.GarageLogic
             m_CarState = eCarState.inRepair;
         }
 
+
         public Vehicle Vehicle
         {
             get
             {
                 return m_Vehicle;
+            }
+        }
+
+
+        public string Name
+        {
+            get
+            {
+                return m_Name;
+            }
+            set
+            {
+                m_Name = value;
+            }
+        }
+
+        public eCarState CarState
+        {
+            get
+            {
+                return m_CarState;
+            }
+            set
+            {
+                m_CarState = value;
             }
         }
     }

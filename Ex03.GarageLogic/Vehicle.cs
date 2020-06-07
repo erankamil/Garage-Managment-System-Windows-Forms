@@ -11,6 +11,7 @@ namespace Ex03.GarageLogic
         private Wheel[] m_Wheels;
         private EnergySource m_EnergySource;
         private string m_WheelsManufacturer;
+        private const int k_NumOfProperties = 4;
 
         public class Wheel
         {
@@ -66,6 +67,7 @@ namespace Ex03.GarageLogic
             }
         }
 
+
         public Vehicle(Vehicle i_Vehicle)
         {
             m_Model = i_Vehicle.Model;
@@ -81,11 +83,7 @@ namespace Ex03.GarageLogic
             GetInfoStrs.Add("Model Name");
             GetInfoStrs.Add("Current Energy Amount");
             GetInfoStrs.Add("Wheels Manufacturer ");
-            for (int i = 0; i < m_Wheels.Length; i++)
-            {
-              
-                GetInfoStrs.Add("Air preasure Wheel number " + (i+1).ToString());
-            }
+            GetInfoStrs.Add("Wheels Air preasure ");
 
             return GetInfoStrs;
         }
@@ -136,9 +134,12 @@ namespace Ex03.GarageLogic
             float res;
             if (float.TryParse(i_VehicleInfoStr, out res))
             {
-                if (res >= 0 && res <= m_Wheels[i_Index - 3].MaxAirPressure)
+                if (res >= 0 && res <= m_Wheels[i_Index - 2].MaxAirPressure)
                 {
-                    m_Wheels[i_Index - 3].CurrentAirPressure = res;
+                    foreach(Wheel wheel in m_Wheels)
+                    {
+                        wheel.CurrentAirPressure = res;
+                    }
                 }
                 else
                 {
@@ -206,7 +207,15 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public EnergySource EnergySource
+        public int NumOfPropeties
+        {
+            get
+            {
+                return k_NumOfProperties;
+            }
+        }
+
+        internal EnergySource EnergySource
         {
             get
             {

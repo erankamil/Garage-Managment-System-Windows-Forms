@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    public class EnergySource
+    internal class EnergySource
     {
         private float m_CurrentAmount;
         private float m_MaxAmount;

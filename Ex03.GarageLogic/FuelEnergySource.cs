@@ -1,22 +1,11 @@
 ﻿
 namespace Ex03.GarageLogic
 {
-    public class FuelEnergySource : EnergySource
+    internal class FuelEnergySource : EnergySource
     {
         private eFuelType m_FuelType;
 
-        public FuelEnergySource() : base()
-        { }
-        //public FuelEnergySource(float i_CurrentTankFuel, float i_MaxTankFuel,
-        //    eFuelType i_FuelType) : base(i_CurrentTankFuel, i_MaxTankFuel)
-        //{
-        //    m_FuelType = i_FuelType;
-        //}
-
-        //public FuelEnergySource(EnergySource i_Base, int i_FuelType):base(i_Base)
-        //{
-        //    m_FuelType = (eFuelType)i_FuelType;
-        //}
+        public FuelEnergySource() : base() { }
 
         public float CurrentFuelAmount
         {

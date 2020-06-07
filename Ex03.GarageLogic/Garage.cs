@@ -11,17 +11,24 @@ namespace Ex03.GarageLogic
             m_CostumerBook = new Dictionary<string, CustomerCard>();
         }
 
-        public bool FindCustomer(string i_LicencsePlate)
+        public bool FindCustomer(string i_LicencsePlate, out CustomerCard res)
         {
             bool isExist = false;
+            res = null;
             foreach (KeyValuePair<string, CustomerCard> currentCostumer in m_CostumerBook)
             {
                 if (currentCostumer.Value.Vehicle.LicesncePlate == i_LicencsePlate)
                 {
                     isExist = true;
+                    res = currentCostumer.Value;
                 }
             }
             return isExist;
+        }
+
+        public void ChangeCustomerVehicleState(CustomerCard i_Cutomer)
+        {
+            i_Cutomer.CarState = eCarState.inRepair;
         }
 
         public void EnterVehicle(Vehicle i_Vehicle, string i_Name, string i_Phone)

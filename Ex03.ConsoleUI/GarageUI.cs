@@ -10,22 +10,37 @@ namespace Ex03.ConsoleUI
         public void RunApp()
         {
             m_GarageManager = new GarageLogic.Garage();
-            printMenu();
-            string selection = Console.ReadLine();
-            switch (selection)
-            {
-                case "1":
-                    string licenceStr;
-                    getCustomerLicenseNumber(out licenceStr);
-                    if (!m_GarageManager.FindCustomer(licenceStr)) // in case false
-                    {
-                        newCustomerActions(licenceStr);
-                    }
-                    break;
-                default:
-                    break;
+            bool end = false;
+            while ( !end )
+            { 
+                printMenu();
+                string selection = Console.ReadLine();
+                switch (selection)
+                {
+                    case "1":
+                        Ex02.ConsoleUtils.Screen.Clear();
+                        string licenceStr;
+                        getCustomerLicenseNumber(out licenceStr);
+                        if (!m_GarageManager.FindCustomer(licenceStr, out GarageLogic.CustomerCard res)) // in case false
+                        {
+                            newCustomerActions(licenceStr);
+                        }
+                        else
+                        {
+                            changeCustomerVehicleState(res);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
 
+        }
+
+        private void changeCustomerVehicleState(GarageLogic.CustomerCard i_Customer)
+        {
+            m_GarageManager.ChangeCustomerVehicleState(i_Customer);
+            Console.WriteLine("{0}'s Vehicle changed its status to: {1} ", i_Customer.Name, i_Customer.CarState);
         }
 
         private void newCustomerActions(string i_LicenceStr)
@@ -36,6 +51,9 @@ namespace Ex03.ConsoleUI
             getVehicleInfo(vehicleToAdd, vehicleInfo);
             getCustomerCardData(out customerName, out customerPhone);
             m_GarageManager.EnterVehicle(vehicleToAdd, customerName, customerPhone);
+            Console.WriteLine("{0}'s vehicle was added successfully to the garage!", customerName);
+            System.Threading.Thread.Sleep(2000);
+            Ex02.ConsoleUtils.Screen.Clear();
         }
 
         private GarageLogic.Vehicle prepareCar(string i_LicenseNumber)
@@ -84,7 +102,7 @@ namespace Ex03.ConsoleUI
                 string vehicleValue;
                 do
                 {
-                    Console.WriteLine(string.Format("Please enter {0}:", i_vehicleInfoStrs[i]));
+                    Console.WriteLine(string.Format("Please enter {0}", i_vehicleInfoStrs[i]));
                     vehicleValue = Console.ReadLine();
                 }
                 while (!checkValidValue(vehicleValue));
@@ -99,6 +117,11 @@ namespace Ex03.ConsoleUI
                     i--;
                 }
                 catch (ArgumentException ec)
+                {
+                    Console.WriteLine(ec.Message);
+                    i--;
+                }
+                catch (FormatException ec)
                 {
                     Console.WriteLine(ec.Message);
                     i--;
@@ -132,7 +155,7 @@ namespace Ex03.ConsoleUI
         {
             int res;
             bool isValid = true;
-            if (string.IsNullOrEmpty(i_LicenceStr))
+            if (string.IsNullOrEmpty(i_LicenceStr) || string.IsNullOrWhiteSpace(i_LicenceStr))
             {
                 isValid = false;
                 Console.WriteLine("Invalid Licence number");
@@ -158,7 +181,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine(@"Welcome to the garage!
 Please choose the service you want:
-Press 1 to add a new car to the garage");
+1) To add a new car to the garage");
         }
     }
 }

@@ -29,6 +29,9 @@ namespace Ex03.GarageLogic
                         case eType.FuelMotorCycle:
                             vehicleToCreate = new MotorCycle(i_LicencePlate, eEnergyType.Fuel);
                             break;
+                        case eType.Trunk:
+                            vehicleToCreate = new Trunk(i_LicencePlate);
+                            break;
                         default:
                             break;
                     }

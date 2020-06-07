@@ -3,7 +3,7 @@ using System;
 
 namespace Ex03.GarageLogic
 {
-    public class MotorCycle : Vehicle
+    internal class MotorCycle : Vehicle
     {
         private eLicenseType m_LicenseType;
         private int m_EngineCapacity;
@@ -11,7 +11,6 @@ namespace Ex03.GarageLogic
         private const float k_ElectricMaxEnregy = 1.2f;
         private const float k_MaxWheelAirPressure = 30f;
         private const float k_FuelMaxTank = 7f;
-        private const int k_StartIndexInfo = 5;
 
 
         public MotorCycle(string i_LicencePlate, eEnergyType i_EnergyType) : 
@@ -63,7 +62,7 @@ namespace Ex03.GarageLogic
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if (i_Index < k_StartIndexInfo)
+            if (i_Index < base.NumOfPropeties)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }
@@ -78,10 +77,10 @@ namespace Ex03.GarageLogic
                     switch (i_Index)
                     {
                         case (int)eMotorCyceleInfo.LincenseType:
-                            updateLicenseType(i_Value);
+                            UpdateLicenseType(i_Value);
                             break;
                         case (int)eMotorCyceleInfo.EngineCapacity:
-                            updateEngineCapacity(i_Value);
+                            UpdateEngineCapacity(i_Value);
                             break;
                         default:
                             break;
@@ -90,7 +89,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        private void updateEngineCapacity(string i_LicenseType)
+        public void UpdateEngineCapacity(string i_LicenseType)
         {
             if (int.TryParse(i_LicenseType, out int res))
             {
@@ -109,7 +108,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        private void updateLicenseType(string i_LicenseType)
+        public void UpdateLicenseType(string i_LicenseType)
         {
             if (int.TryParse(i_LicenseType, out int res))
             {
@@ -140,7 +139,7 @@ namespace Ex03.GarageLogic
 
         public enum eMotorCyceleInfo
         {
-            LincenseType = 5,
+            LincenseType = 4,
             EngineCapacity
         }
     }

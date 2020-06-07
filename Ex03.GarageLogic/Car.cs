@@ -3,11 +3,10 @@ using System;
 
 namespace Ex03.GarageLogic
 {
-    public class Car : Vehicle
+    internal class Car : Vehicle
     {
         private eColor m_Color;
         private eNumOfDoors m_NumOfDoors;
-        private const int k_StartIndexInfo = 7;
         private const float k_ElectricMaxEnregy = 2.1f;
         private const float k_MaxWheelAirPressure = 32f;
         private const float k_FuelMaxTank = 60f;
@@ -45,7 +44,7 @@ namespace Ex03.GarageLogic
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if (i_Index < k_StartIndexInfo)
+            if (i_Index < base.NumOfPropeties)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }
@@ -60,10 +59,10 @@ namespace Ex03.GarageLogic
                     switch (i_Index)
                     {
                         case (int)eCarInfo.color:
-                            updateColor(i_Value);
+                            UpdateColor(i_Value);
                             break;
                         case (int)eCarInfo.numOfDoors:
-                            updateNumOfDoors(i_Value);
+                            UpdateNumOfDoors(i_Value);
                             break;
                         default:
                             break;
@@ -72,7 +71,7 @@ namespace Ex03.GarageLogic
             }
         }
         
-        private void updateNumOfDoors(string i_NumOfDoors)
+        public void UpdateNumOfDoors(string i_NumOfDoors)
         {
             if (int.TryParse(i_NumOfDoors, out int res))
             {
@@ -93,7 +92,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        private void updateColor(string i_Color)
+        public void UpdateColor(string i_Color)
         {
             if (int.TryParse(i_Color, out int res))
             {
@@ -132,7 +131,7 @@ namespace Ex03.GarageLogic
 
         public enum eCarInfo
         {
-            color = 7,
+            color = 4,
             numOfDoors 
         }
 
