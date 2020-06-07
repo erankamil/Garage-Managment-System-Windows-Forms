@@ -7,7 +7,6 @@ namespace Ex03.GarageLogic
     {
         private eLicenseType m_LicenseType;
         private int m_EngineCapacity;
-        private EnergySource m_EnergySourceType;
         private const float k_ElectricMaxEnregy = 1.2f;
         private const float k_MaxWheelAirPressure = 30f;
         private const float k_FuelMaxTank = 7f;

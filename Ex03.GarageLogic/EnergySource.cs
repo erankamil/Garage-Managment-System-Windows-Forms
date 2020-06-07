@@ -2,56 +2,24 @@
 
 namespace Ex03.GarageLogic
 {
-    internal class EnergySource
+    public abstract class EnergySource
     {
         private float m_CurrentAmount;
         private float m_MaxAmount;
         private eEnergyType m_Type;
 
-        //public EnergySource(float i_CurrentAmount, float i_MaxAmount)
-        //{
-        //    m_CurrentAmount = i_CurrentAmount;
-        //    m_MaxAmount = i_MaxAmount;
-        //}
-
-        //public EnergySource(EnergySource i_EnergySource)
-        //{
-        //    m_CurrentAmount = i_EnergySource.m_CurrentAmount;
-        //    m_MaxAmount = i_EnergySource.m_MaxAmount;
-        //}
-
-        public bool Load(float i_Amount)
+        public virtual void Load(float i_Amount)
         {
-
-            bool isValid = true;
-            if (m_CurrentAmount + i_Amount < m_MaxAmount)
+            if (m_CurrentAmount + i_Amount <= m_MaxAmount)
             {
                 m_CurrentAmount += i_Amount;
             }
             else
             {
-                isValid = false;
+                throw new ValueOutOfRangeException(i_Amount.ToString(), 0,
+                    m_MaxAmount - m_CurrentAmount);
             }
-            return isValid;
         }
-
-
-        //public EnergySource Initialize(int i_FuelType)
-        //{
-        //    EnergySource EnergySourceType;
-        //    Type type = this.GetType();
-        //    if (type.Equals(typeof(ElectricEnergySource)))
-        //    {
-        //        EnergySourceType = new ElectricEnergySource(this);
-        //        m_EnergySourceType.Type = EnergySource.eType.electric;
-        //    }
-        //    else
-        //    {
-        //        EnergySourceType = new FuelEnergySource(this, i_FuelType);
-        //        m_EnergySourceType.Type = EnergySource.eType.fuel;
-        //    }
-        //}
-
 
         public float CurrAmount
         {

@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
         private string m_WheelsManufacturer;
         private const int k_NumOfProperties = 4;
 
-        public class Wheel
+        internal class Wheel
         {
             private float m_CurrentAirPressure;
             private float m_MaxAirPressure;
@@ -44,9 +44,9 @@ namespace Ex03.GarageLogic
                 }
             }
             
-            public void AirBlowing(float i_AirMount)
+            public void AirBlowing()
             {
-                m_CurrentAirPressure += i_AirMount;
+                m_CurrentAirPressure = this.MaxAirPressure;
             }
         }
 
@@ -173,6 +173,14 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public void BlowWheelsToMax()
+        {
+            foreach(Wheel current in m_Wheels)
+            {
+                current.AirBlowing();
+            }
+        }
+
         public string Model
         {
             get
@@ -223,7 +231,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public Wheel[] Wheels
+        internal Wheel[] Wheels
         {
             get
             {

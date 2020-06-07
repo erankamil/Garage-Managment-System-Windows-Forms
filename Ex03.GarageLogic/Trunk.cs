@@ -13,8 +13,8 @@ namespace Ex03.GarageLogic
         public Trunk(string i_LicencePlate) : base(i_LicencePlate, eEnergyType.Fuel)
         {
             base.InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Truck);
-
             base.EnergySource.MaxAmount = k_FuelMaxTank;
+            (base.EnergySource as FuelEnergySource).FuelType = eFuelType.Soler;
         }
 
         public float CargoVolume

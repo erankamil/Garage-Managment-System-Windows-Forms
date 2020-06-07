@@ -3,19 +3,9 @@ namespace Ex03.GarageLogic
 {
     internal class ElectricEnergySource : EnergySource
     {
-        //public ElectricEnergySource(float i_BatteryVlotage,float i_MaxBatteryVoltage)
-        //    :base(i_BatteryVlotage, i_MaxBatteryVoltage) { }
-
-        //public ElectricEnergySource(EnergySource i_Base) : base(i_Base) { }
-
-        public float CurrentBatteryVoltage
+        public override void Load(float i_Amount)
         {
-            get
-            {
-                return base.CurrAmount;
-            }
+            base.Load(i_Amount);
         }
-
-
     }
 }

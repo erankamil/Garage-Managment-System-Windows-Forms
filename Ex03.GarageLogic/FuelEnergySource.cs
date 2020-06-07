@@ -1,7 +1,9 @@
-﻿
+﻿using System.Collections.Generic;
+using System;
+
 namespace Ex03.GarageLogic
 {
-    internal class FuelEnergySource : EnergySource
+    public class FuelEnergySource : EnergySource
     {
         private eFuelType m_FuelType;
 
@@ -23,11 +25,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public bool PutGas(float i_AmuntOfFuel)
-        {
-            return base.Load(i_AmuntOfFuel);
-        }
-
         public eFuelType FuelType
         {
             get
@@ -39,13 +36,40 @@ namespace Ex03.GarageLogic
                 m_FuelType = value;
             }
         }
+
+        public override void Load(float i_Amount)
+        {
+            base.Load(i_Amount);
+        }
+        public static List<string> GetFuelTypes()
+        {
+            List<string> fuelTypes = new List<string>();
+            fuelTypes.Add(eFuelType.Octan95.ToString());
+            fuelTypes.Add(eFuelType.Octan96.ToString());
+            fuelTypes.Add(eFuelType.Octan98.ToString());
+            fuelTypes.Add(eFuelType.Soler.ToString());
+            return fuelTypes;
+        }
+
+        public static bool IsFuelType(string i_Type)
+        {
+            bool isExist = false;
+            if(int.TryParse(i_Type,out int res))
+            {
+                if(res >= (int)eFuelType.Octan95 && res <= (int)eFuelType.Soler )
+                {
+                    isExist = true;
+                }
+            }
+            return isExist;
+        }
     }
 
     public enum eFuelType
     {
-        Octan95 = 95,
-        Octan96 = 96,
-        Octan98 = 98,
-        Soler = 100
+        Octan95 = 1,
+        Octan96 = 2,
+        Octan98 = 3,
+        Soler = 4
     }
 }

@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
             m_Vehicle = i_Vehicle;
             m_Name = i_Name;
             m_Phone = i_Phone;
-            m_CarState = eCarState.inRepair;
+            m_CarState = eCarState.InRepair;
         }
 
 
@@ -50,11 +50,6 @@ namespace Ex03.GarageLogic
             }
         }
     }
-    public enum eCarState
-    {
-        inRepair = 1,
-        repaired,
-        paid
-    }
+
 
 }
