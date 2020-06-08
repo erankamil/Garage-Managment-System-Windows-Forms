@@ -10,8 +10,8 @@ namespace Ex03.ConsoleUI
         public void RunApp()
         {
             m_GarageManager = new GarageLogic.Garage();
-            bool end = false;
-            while ( !end )
+            bool exit = false;
+            while (!exit)
             { 
                 printMenu();
                 string selection = Console.ReadLine();
@@ -35,12 +35,16 @@ namespace Ex03.ConsoleUI
                     case "6":
                         case6();
                         break;
+                    case "8":
+                        Console.WriteLine("Good Bye!!");
+                        exit = true;
+                        break;
                     default:
+                        Console.WriteLine("Invalid option");
                         break;
                 }
                 System.Threading.Thread.Sleep(2000);
             }
-
         }
 
         private void case6()
@@ -480,7 +484,8 @@ Please choose the service you want:
 3) Change vehicle status
 4) Wheels air blowing
 5) Put fuel
-6) Charge vehicle");
+6) Charge vehicle
+8) Exit");
         }
     }
 }
