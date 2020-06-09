@@ -1,12 +1,12 @@
 ﻿
 namespace Ex03.ConsoleUI
 {
-    class Program
+    internal class Program
     {
         public static void Main()
         {
              GarageUI ui = new GarageUI();
-            ui.RunApp();
+             ui.RunApp();
         }
     }
 }

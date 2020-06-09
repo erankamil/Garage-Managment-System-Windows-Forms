@@ -3,7 +3,7 @@ using System;
 
 namespace Ex03.ConsoleUI
 {
-    public class GarageUI
+    internal class GarageUI
     {
         private GarageLogic.Garage m_GarageManager;
 
@@ -66,7 +66,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("Customer does not exist in the garage");
+                Console.WriteLine("Customer does not exist in the garage..");
             }
 
         }
@@ -130,23 +130,32 @@ namespace Ex03.ConsoleUI
             {
                 string typeStr = getFuelType();
                 float amount = getEnergyAmount();
-                try
-                {
-                    m_GarageManager.RefuelVehicle(i_ExsitCustomer, amount, typeStr);
-                    isValid = true;
-                }
-                catch (GarageLogic.ValueOutOfRangeException ec)
-                {
-                    Console.WriteLine(ec.Message);
-                    isValid = false;
-                }
-                catch (ArgumentException ec)
-                {
-                    Console.WriteLine(ec.Message);
-                    isValid = false;
-                }
+                isValid = refuelVehicle(i_ExsitCustomer, typeStr, amount);
+
             }
             Console.WriteLine("Vehicle has successfully refuled!");
+        }
+
+        public bool refuelVehicle(GarageLogic.CustomerCard i_ExsitCustomer, string i_FuelType, 
+            float i_Amount)
+        {
+            bool isValid = false;
+            try
+            {
+                m_GarageManager.RefuelVehicle(i_ExsitCustomer, i_Amount, i_FuelType);
+                isValid = true;
+            }
+            catch (GarageLogic.ValueOutOfRangeException ec)
+            {
+                Console.WriteLine(ec.Message);
+                isValid = false;
+            }
+            catch (ArgumentException ec)
+            {
+                Console.WriteLine(ec.Message);
+                isValid = false;
+            }
+            return isValid;
         }
 
         private float getEnergyAmount()
@@ -155,7 +164,7 @@ namespace Ex03.ConsoleUI
             float floatAmount = 0;
             do
             {
-                Console.WriteLine("Please enter amount to add");
+                Console.WriteLine("Please enter amount to add:");
                 amount = Console.ReadLine();
             } while (!isNumeric(amount, ref floatAmount));
             return floatAmount;
@@ -191,7 +200,7 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine("Invalid Input");
                 }
-                Console.WriteLine("Please enter fuel type");
+                Console.WriteLine("Please enter fuel type:");
                 string[] fuelTypes = m_GarageManager.GetFuelTypes();
 
                 for (int i = 0; i < fuelTypes.Length; i++)
@@ -214,7 +223,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("Customer does not exist in the garage");
+                Console.WriteLine("Customer does not exist in the garage..");
             }
         }
 
@@ -227,7 +236,6 @@ namespace Ex03.ConsoleUI
                 bool isValid = false;
                 while (!isValid)
                 {
-                    Ex02.ConsoleUtils.Screen.Clear();
                     statusStr = statusesMessages();
                     if (int.TryParse(statusStr, out int res))
                     {
@@ -259,7 +267,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("Customer does not exist in the garage");
+                Console.WriteLine("Customer does not exist in the garage..");
             }
         }
 
@@ -298,7 +306,6 @@ namespace Ex03.ConsoleUI
             bool isValid = false;
             while (!isValid)
             {
-                Ex02.ConsoleUtils.Screen.Clear();
                 statusStr = statusesMessages();
                 if (int.TryParse(statusStr, out int res))
                 {
@@ -336,7 +343,7 @@ namespace Ex03.ConsoleUI
         {
             String choice;
             List<string> statuses = m_GarageManager.GetStatusOptions();
-            Console.WriteLine("Press");
+            Console.WriteLine("Press:");
 
             for (int i = 0; i < statuses.Count; i++)
             {
@@ -350,17 +357,17 @@ namespace Ex03.ConsoleUI
             List<string> licenses = m_GarageManager.GetVehicleByStatus(i_State);
             if(licenses != null)
             {
-                foreach(string currLicesnse in licenses)
+                Console.WriteLine("Licenses number with state {0}:", i_State.ToString());
+                foreach (string currLicesnse in licenses)
                 {
                     Console.WriteLine(currLicesnse);
                 }
             }
             else
             {
-                Console.WriteLine("There is no vehicles in the garage with state {0}",
+                Console.WriteLine("There is no vehicles in the garage with state {0}.",
                    i_State.ToString());
             }
-            Ex02.ConsoleUtils.Screen.Clear();
         }
 
         private void changeCustomerVehicleState(GarageLogic.CustomerCard i_Customer, 
@@ -388,7 +395,7 @@ namespace Ex03.ConsoleUI
             bool isValid = true; ;
             do
             {
-                Console.WriteLine("Please choose your vehicle type");
+                Console.WriteLine("Please choose your vehicle type:");
                string[] vehicleTypes = GarageLogic.VehicleCreator.GetDataNames();
                 int i = 1;
                 foreach (string type in vehicleTypes)
@@ -470,16 +477,16 @@ namespace Ex03.ConsoleUI
 
         private void getCustomerLicenseNumber(out string o_LicenceStr)
         {
-            Console.WriteLine("Please enter license number");
             do
             {
+                Console.WriteLine("Please enter license number:");
                 o_LicenceStr = Console.ReadLine();
             }
-            while (!checkValidLicense(o_LicenceStr));
+            while (!checkValidNumericStr(o_LicenceStr));
         }
 
 
-        private bool checkValidLicense(string i_LicenceStr)
+        private bool checkValidNumericStr(string i_LicenceStr)
         {
             int res;
             bool isValid = true;
@@ -491,7 +498,7 @@ namespace Ex03.ConsoleUI
             else if(int.TryParse(i_LicenceStr, out res) == false)
             {
                 isValid = false;
-                Console.WriteLine("Invalid Licence number (only numbers)");
+                Console.WriteLine("Invalid  number (use only numbers)");
             }
             return isValid;
         }
@@ -499,17 +506,26 @@ namespace Ex03.ConsoleUI
         private void getCustomerCardData(out string i_Name, out string i_Phone)
         {
             Console.WriteLine("Last details before entering the car");
-            Console.WriteLine("Owner's name");
-            i_Name = Console.ReadLine();
-            Console.WriteLine("Owner's phone number");
-            i_Phone = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Owner's name:");
+                i_Name = Console.ReadLine();
+            }
+            while (!checkValidValue(i_Name));
+            do
+            {
+                Console.WriteLine("Owner's phone number:");
+                i_Phone = Console.ReadLine();
+            }
+            while (!checkValidNumericStr(i_Phone));
+
         }
 
         private void printMenu()
         {
             Ex02.ConsoleUtils.Screen.Clear();
             Console.WriteLine(@"Welcome to the garage!
-Please choose the service you want
+Please choose the service you want:
 ==================================
 1) Add a new car to the garage
 2) See the vehicles in the garage

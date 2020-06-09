@@ -45,10 +45,10 @@ namespace Ex03.GarageLogic
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"Truck has Hazardous materials
+            infoStrs.Add(@"Truck has Hazardous materials:
 1) Yes
 2) No");
-            infoStrs.Add("Cargo Volume");
+            infoStrs.Add("Cargo Volume:");
             return infoStrs;
         }
 

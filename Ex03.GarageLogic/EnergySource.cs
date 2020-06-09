@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private float m_MaxAmount;
         private eEnergyType m_Type;
 
-        public virtual void Load(float i_Amount)
+        public  void Load(float i_Amount)
         {
             if (m_CurrentAmount + i_Amount <= m_MaxAmount)
             {

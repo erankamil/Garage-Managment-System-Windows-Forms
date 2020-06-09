@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     {
         private eColor m_Color;
         private eNumOfDoors m_NumOfDoors;
-        private const float k_ElectricMaxEnregy = 2.1f;
+        private const float k_ElectricMaxEnergy = 2.1f;
         private const float k_MaxWheelAirPressure = 32f;
         private const float k_FuelMaxTank = 60f;
 
@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
             switch (i_Type)
             {
                 case eEnergyType.Electric:
-                    base.EnergySource.MaxAmount = k_ElectricMaxEnregy;
+                    base.EnergySource.MaxAmount = k_ElectricMaxEnergy;
                     break;
                 case eEnergyType.Fuel:
                     (base.EnergySource as FuelEnergySource).FuelType = eFuelType.Octan96;
@@ -43,12 +43,12 @@ namespace Ex03.GarageLogic
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"Color options
+            infoStrs.Add(@"Color options:
 1) Red
 2) White
 3) Black
 4) Silver");
-            infoStrs.Add("Number Of Doors");
+            infoStrs.Add("Number Of Doors:");
             return infoStrs;
         }
 

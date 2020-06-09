@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
         private const float k_FuelMaxTank = 7f;
 
 
-        public MotorCycle(string i_LicencePlate, eEnergyType i_EnergyType) : 
+        public MotorCycle(string i_LicencePlate, eEnergyType i_EnergyType) :
             base(i_LicencePlate, i_EnergyType)
         {
             base.InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.MotorCycle);
@@ -59,12 +59,12 @@ namespace Ex03.GarageLogic
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"License Types
+            infoStrs.Add(@"License Types:
 1) A
 2) A2
 3) AA
 4) B");
-            infoStrs.Add("Engine capacity");
+            infoStrs.Add("Engine capacity:");
             return infoStrs;
         }
 
@@ -101,7 +101,7 @@ namespace Ex03.GarageLogic
         {
             if (int.TryParse(i_LicenseType, out int res))
             {
-                if(res > 0)
+                if (res > 0)
                 {
                     m_EngineCapacity = res;
                 }
@@ -138,19 +138,19 @@ namespace Ex03.GarageLogic
                 throw new FormatException("License Type is not supported");
             }
         }
-
-        public enum eLicenseType
-        {
-            A = 1,
-            A1 = 2,
-            AA = 3,
-            B = 4
-        }
-
-        public enum eMotorCyceleInfo
-        {
-            LincenseType = 4,
-            EngineCapacity
-        }
     }
-}
+
+    public enum eLicenseType
+    {
+        A = 1,
+        A1 = 2,
+        AA = 3,
+        B = 4
+    }
+
+    public enum eMotorCyceleInfo
+    {
+        LincenseType = 4,
+        EngineCapacity
+    }
+ }

@@ -81,10 +81,10 @@ namespace Ex03.GarageLogic
         public virtual List<string> GetDataNames()
         {
             List<string> infoStrs = new List<string>();
-            infoStrs.Add("Model Name");
-            infoStrs.Add("Current Energy Amount");
-            infoStrs.Add("Wheels Manufacturer ");
-            infoStrs.Add("Wheels Air preasure ");
+            infoStrs.Add("Model Name:");
+            infoStrs.Add("Current Energy Amount:");
+            infoStrs.Add("Wheels Manufacturer:");
+            infoStrs.Add("Wheels Air preasure:");
             return infoStrs;
         }
 
