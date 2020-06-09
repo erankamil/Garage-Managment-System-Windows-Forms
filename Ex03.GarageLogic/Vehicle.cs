@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
+
 namespace Ex03.GarageLogic
 {
     public class Vehicle
@@ -77,7 +78,7 @@ namespace Ex03.GarageLogic
             m_EnergySource = i_Vehicle.m_EnergySource;
         }
 
-        public virtual List<string> GetInfo()
+        public virtual List<string> GetDataNames()
         {
             List<string> GetInfoStrs = new List<string>();
             GetInfoStrs.Add("Model Name");
@@ -86,6 +87,18 @@ namespace Ex03.GarageLogic
             GetInfoStrs.Add("Wheels Air preasure ");
 
             return GetInfoStrs;
+        }
+
+        public virtual List<string> GetDetails()
+        {
+            
+            List<string> detailsStrs = new List<string>();
+            detailsStrs.Add("License Number: "+ m_LicesncePlate);
+            detailsStrs.Add("Model: " + m_Model);
+            detailsStrs.Add("Wheels Manufacturer: " + m_WheelsManufacturer);
+            detailsStrs.Add("Wneels air pressure: " + m_Wheels[0].CurrentAirPressure.ToString());
+            m_EnergySource.GetDetails(detailsStrs);
+            return detailsStrs;
         }
 
         public virtual void UpdateInfo(string i_VehicleInfoStr, int i_Index)
@@ -143,7 +156,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_Wheels[i_Index - 3].MaxAirPressure);
+                    throw new ValueOutOfRangeException(i_VehicleInfoStr, 0, m_Wheels[i_Index - 2].MaxAirPressure);
                 }
             }
             else

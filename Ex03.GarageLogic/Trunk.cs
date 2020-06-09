@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ex03.GarageLogic
 {
@@ -33,9 +34,17 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public override List<string> GetInfo()
+        public override List<string> GetDetails()
         {
-            List<string> infoStrs = base.GetInfo();
+            List<string> detailsStrs = base.GetDetails();
+            detailsStrs.Add("Cargo volume: " + m_CargoVolume.ToString());
+            detailsStrs.Add("Has hazardous materials : " + m_HasHazardousmaterials.ToString());
+            return detailsStrs;
+        }
+
+        public override List<string> GetDataNames()
+        {
+            List<string> infoStrs = base.GetDataNames();
             infoStrs.Add(@"Truck has Hazardous materials:
 1) Yes
 2) No");
@@ -62,7 +71,7 @@ namespace Ex03.GarageLogic
                         case (int)eTrunkInfo.CargoVolume:
                             UpdateCargoVolume(i_Value);
                             break;
-                        case (int)eTrunkInfo.Hazardousmaterials:
+                        case (int)eTrunkInfo.HazardousMaterials:
                             UpdateHazardousmaterials(i_Value);
                             break;
                         default:
@@ -76,7 +85,10 @@ namespace Ex03.GarageLogic
         {
             if (float.TryParse(i_CargoVolme, out float res))
             {
-                if (res >= (int)eHasHazardousmaterials.Yes && res <= (int)eHasHazardousmaterials.No)
+                var first = Enum.GetValues(typeof(eHasHazardousmaterials)).Cast<eHasHazardousmaterials>().First();
+                var last = Enum.GetValues(typeof(eHasHazardousmaterials)).Cast<eHasHazardousmaterials>().Last();
+
+                if (res >= (int)first && res <= (int)last)
                 {
                     switch (res)
                     {
@@ -90,8 +102,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_CargoVolme, (int)eHasHazardousmaterials.Yes,
-                        (int)eHasHazardousmaterials.No);
+                    throw new ValueOutOfRangeException(i_CargoVolme, (int)first, (int)last);
                 }
             }
             else
@@ -123,7 +134,7 @@ namespace Ex03.GarageLogic
 
     public enum eTrunkInfo
     {
-        Hazardousmaterials = 4,
+        HazardousMaterials = 4,
         CargoVolume
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Ex03.GarageLogic
 {
@@ -47,9 +48,17 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public override List<string> GetInfo()
+        public override List<string> GetDetails()
         {
-            List<string> infoStrs = base.GetInfo();
+            List<string> detailsStrs = base.GetDetails();
+            detailsStrs.Add("License type: " + m_LicenseType.ToString());
+            detailsStrs.Add("Engine capacity : " + m_EngineCapacity.ToString());
+            return detailsStrs;
+        }
+
+        public override List<string> GetDataNames()
+        {
+            List<string> infoStrs = base.GetDataNames();
             infoStrs.Add(@"License Types:
 1) A
 2) A2
@@ -111,15 +120,17 @@ namespace Ex03.GarageLogic
         {
             if (int.TryParse(i_LicenseType, out int res))
             {
-                if (res >= (int)eLicenseType.A && res <= (int)eLicenseType.B)
+                var first = Enum.GetValues(typeof(eLicenseType)).Cast<eLicenseType>().First();
+                var last = Enum.GetValues(typeof(eLicenseType)).Cast<eLicenseType>().Last();
+
+                if (res >= (int)first && res <= (int)last)
                 {
                     Enum.TryParse<eLicenseType>(res.ToString(), out eLicenseType color);
                     m_LicenseType = color;
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_LicenseType, (int)eLicenseType.A,
-                        (int)eLicenseType.B);
+                    throw new ValueOutOfRangeException(i_LicenseType, (int)first, (int)last);
                 }
             }
             else

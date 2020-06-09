@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Ex03.GarageLogic
 {
@@ -30,9 +31,17 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public override List<string> GetInfo()
+        public override List<string> GetDetails()
         {
-            List<string> infoStrs = base.GetInfo();
+            List<string> detailsStrs = base.GetDetails();
+            detailsStrs.Add("Color: " + m_Color.ToString());
+            detailsStrs.Add("Number of doors: " + m_NumOfDoors.ToString());
+            return detailsStrs;
+        }
+
+        public override List<string> GetDataNames()
+        {
+            List<string> infoStrs = base.GetDataNames();
             infoStrs.Add(@"Color options:
 1) Red
 2) White
@@ -75,15 +84,17 @@ namespace Ex03.GarageLogic
         {
             if (int.TryParse(i_NumOfDoors, out int res))
             {
-                if (res >= (int)eNumOfDoors.Two && res <= (int)eNumOfDoors.Five)
+                var first = Enum.GetValues(typeof(eNumOfDoors)).Cast<eNumOfDoors>().First();
+                var last = Enum.GetValues(typeof(eNumOfDoors)).Cast<eNumOfDoors>().Last();
+
+                if (res >= (int)first && res <= (int)last)
                 {
                     Enum.TryParse<eNumOfDoors>(res.ToString(), out eNumOfDoors number);
                     m_NumOfDoors = number;
                 }
                 else
-                {
-                    throw new ValueOutOfRangeException(i_NumOfDoors, (int)eNumOfDoors.Two,
-                        (int)eNumOfDoors.Five);
+                { 
+                    throw new ValueOutOfRangeException(i_NumOfDoors, (int)first, (int)last);
                 }
             }
             else
@@ -96,15 +107,17 @@ namespace Ex03.GarageLogic
         {
             if (int.TryParse(i_Color, out int res))
             {
-                if (res >= (int)eColor.Red && res <= (int)eColor.Silver)
+                var first = Enum.GetValues(typeof(eColor)).Cast<eColor>().First();
+                var last = Enum.GetValues(typeof(eColor)).Cast<eColor>().Last();
+
+                if (res >= (int)first && res <= (int)last)
                 {
                     Enum.TryParse<eColor>(res.ToString(), out eColor color);
                     m_Color = color;
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_Color, (int)eColor.Red,
-                        (int)eColor.Silver);
+                    throw new ValueOutOfRangeException(i_Color, (int)first, (int)last);
                 }
             }
             else

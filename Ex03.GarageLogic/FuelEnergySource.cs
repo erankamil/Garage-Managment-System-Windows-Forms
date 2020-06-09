@@ -17,6 +17,12 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public override void GetDetails(List<string> i_VehicleDetails)
+        {
+            base.GetDetails(i_VehicleDetails);
+            i_VehicleDetails.Add("Fuel Type: " + m_FuelType.ToString());
+        }
+
         public float MaxFuelAmount
         {
             get

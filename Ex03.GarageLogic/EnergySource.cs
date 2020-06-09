@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -19,6 +20,11 @@ namespace Ex03.GarageLogic
                 throw new ValueOutOfRangeException(i_Amount.ToString(), 0,
                     m_MaxAmount - m_CurrentAmount);
             }
+        }
+
+        public virtual void GetDetails(List<string> i_VehicleDetails)
+        {
+            i_VehicleDetails.Add("Current Energy: " + m_CurrentAmount.ToString());
         }
 
         public float CurrAmount

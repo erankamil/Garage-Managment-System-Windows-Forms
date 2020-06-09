@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
             }
             return vehicleToCreate;
         }
-        public static List<string> GetInfo()
+        public static List<string> GetDataNames()
         {
             List<string> vehicleTypes = new List<string>();
             vehicleTypes.Add("1 Electric Car");
