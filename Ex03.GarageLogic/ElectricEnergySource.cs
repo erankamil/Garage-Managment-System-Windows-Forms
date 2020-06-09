@@ -5,6 +5,22 @@ namespace Ex03.GarageLogic
 {
     internal class ElectricEnergySource : EnergySource
     {
+        public float CurrentFuelAmount
+        {
+            get
+            {
+                return base.CurrAmount;
+            }
+        }
+
+        public float MaxFuelAmount
+        {
+            get
+            {
+                return base.MaxAmount;
+            }
+        }
+
         public override void Load(float i_Amount)
         {
             base.Load(i_Amount);

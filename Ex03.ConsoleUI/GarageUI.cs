@@ -56,8 +56,8 @@ namespace Ex03.ConsoleUI
              , out string licenseNumber) == true)
             {
                 List<string> vehicleDetails = existCustomer.Vehicle.GetDetails();
-                vehicleDetails.Insert(0, "Owner name: " + existCustomer.Name);
-                vehicleDetails.Insert(1, "Vehicle state: " + existCustomer.CarState.ToString());
+                vehicleDetails.Insert(0, "Owner name " + existCustomer.Name);
+                vehicleDetails.Insert(1, "Vehicle state " + existCustomer.CarState.ToString());
                 foreach(string detail in vehicleDetails)
                 {
                     Console.WriteLine(detail);
@@ -155,7 +155,7 @@ namespace Ex03.ConsoleUI
             float floatAmount = 0;
             do
             {
-                Console.WriteLine("Please enter amount to add:");
+                Console.WriteLine("Please enter amount to add");
                 amount = Console.ReadLine();
             } while (!isNumeric(amount, ref floatAmount));
             return floatAmount;
@@ -191,16 +191,16 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine("Invalid Input");
                 }
-                Console.WriteLine("Please enter fuel type:");
-                List<string> fuelTypes = GarageLogic.FuelEnergySource.GetFuelTypes();
+                Console.WriteLine("Please enter fuel type");
+                string[] fuelTypes = m_GarageManager.GetFuelTypes();
 
-                for (int i = 0; i < fuelTypes.Count; i++)
+                for (int i = 0; i < fuelTypes.Length; i++)
                 {
                     Console.WriteLine("{0}) {1}", (i + 1).ToString(), fuelTypes[i]);
                 }
                 typeStr = Console.ReadLine();
             }
-            while (!(isValid = (checkValidValue(typeStr) && GarageLogic.FuelEnergySource.IsFuelType(typeStr))));
+            while (!(isValid = (checkValidValue(typeStr) && m_GarageManager.IsFuelType(typeStr))));
             return typeStr;
         }
 
@@ -336,7 +336,7 @@ namespace Ex03.ConsoleUI
         {
             String choice;
             List<string> statuses = m_GarageManager.GetStatusOptions();
-            Console.WriteLine("Press:");
+            Console.WriteLine("Press");
 
             for (int i = 0; i < statuses.Count; i++)
             {
@@ -357,7 +357,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("There is no vehicles in the garage with state:{0}",
+                Console.WriteLine("There is no vehicles in the garage with state {0}",
                    i_State.ToString());
             }
             Ex02.ConsoleUtils.Screen.Clear();
@@ -367,7 +367,7 @@ namespace Ex03.ConsoleUI
             GarageLogic.eCarState i_State)
         {
             m_GarageManager.ChangeCustomerVehicleState(i_Customer, i_State);
-            Console.WriteLine("{0}'s Vehicle changed its status to: {1} ", i_Customer.Name, i_Customer.CarState);
+            Console.WriteLine("{0}'s Vehicle changed its status to {1} ", i_Customer.Name, i_Customer.CarState);
         }
 
         private void newCustomerActions(string i_LicenceStr)
@@ -388,11 +388,13 @@ namespace Ex03.ConsoleUI
             bool isValid = true; ;
             do
             {
-                Console.WriteLine("Please choose you vehicle type:");
-                List<string> vehicleTypes = GarageLogic.VehicleCreator.GetDataNames();
+                Console.WriteLine("Please choose your vehicle type");
+               string[] vehicleTypes = GarageLogic.VehicleCreator.GetDataNames();
+                int i = 1;
                 foreach (string type in vehicleTypes)
                 {
-                    Console.WriteLine(type.ToString());
+                    Console.WriteLine(i.ToString() + ") " + type.ToString());
+                    i++;
                 }
                 vehicleType = Console.ReadLine();
 
@@ -420,6 +422,7 @@ namespace Ex03.ConsoleUI
             while (!isValid);
             return vehicleToAdd;
         }
+
         private void getVehicleInfo(GarageLogic.Vehicle i_Vehicle, List<string> i_vehicleInfoStrs)
         {
             for (int i = 0; i < i_vehicleInfoStrs.Count; i++)
@@ -467,7 +470,7 @@ namespace Ex03.ConsoleUI
 
         private void getCustomerLicenseNumber(out string o_LicenceStr)
         {
-            Console.WriteLine("Please enter license number:");
+            Console.WriteLine("Please enter license number");
             do
             {
                 o_LicenceStr = Console.ReadLine();
@@ -495,10 +498,10 @@ namespace Ex03.ConsoleUI
 
         private void getCustomerCardData(out string i_Name, out string i_Phone)
         {
-            Console.WriteLine("Last details before entering the car:");
-            Console.Write("Owner's name: ");
+            Console.WriteLine("Last details before entering the car");
+            Console.WriteLine("Owner's name");
             i_Name = Console.ReadLine();
-            Console.Write("Owner's phone number: ");
+            Console.WriteLine("Owner's phone number");
             i_Phone = Console.ReadLine();
         }
 
@@ -506,7 +509,8 @@ namespace Ex03.ConsoleUI
         {
             Ex02.ConsoleUtils.Screen.Clear();
             Console.WriteLine(@"Welcome to the garage!
-Please choose the service you want:
+Please choose the service you want
+==================================
 1) Add a new car to the garage
 2) See the vehicles in the garage
 3) Change vehicle status
@@ -514,7 +518,8 @@ Please choose the service you want:
 5) Put fuel
 6) Charge vehicle
 7) Show customer card details
-8) Exit");
+8) Exit
+=================================");
         }
     }
 }

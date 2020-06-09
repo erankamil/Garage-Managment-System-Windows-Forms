@@ -48,14 +48,9 @@ namespace Ex03.GarageLogic
             }
             return vehicleToCreate;
         }
-        public static List<string> GetDataNames()
+        public static string[] GetDataNames()
         {
-            List<string> vehicleTypes = new List<string>();
-            vehicleTypes.Add("1 Electric Car");
-            vehicleTypes.Add("2 Fuel Car");
-            vehicleTypes.Add("3 Electric MotorCycle");
-            vehicleTypes.Add("4 Fuel MotorCycle");
-            vehicleTypes.Add("5 Trunk");
+            string[] vehicleTypes = Enum.GetNames(typeof(eType));
             return vehicleTypes;
         }
     }

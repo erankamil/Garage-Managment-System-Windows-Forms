@@ -98,7 +98,17 @@ namespace Ex03.GarageLogic
             }
             return licencses;
         }
-        
+
+        public string[] GetFuelTypes()
+        {
+            return FuelEnergySource.GetFuelTypes();
+        }
+
+        public bool IsFuelType(string i_Type)
+        {
+            return FuelEnergySource.IsFuelType(i_Type);
+        }
+
         public List<string> GetStatusOptions()
         {
             List<string> statuses = new List<string>();

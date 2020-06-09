@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace Ex03.GarageLogic
 {
@@ -34,15 +35,15 @@ namespace Ex03.GarageLogic
         public override List<string> GetDetails()
         {
             List<string> detailsStrs = base.GetDetails();
-            detailsStrs.Add("Color: " + m_Color.ToString());
-            detailsStrs.Add("Number of doors: " + m_NumOfDoors.ToString());
+            detailsStrs.Add("Color " + m_Color.ToString());
+            detailsStrs.Add("Number of doors " + m_NumOfDoors.ToString());
             return detailsStrs;
         }
 
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"Color options:
+            infoStrs.Add(@"Color options
 1) Red
 2) White
 3) Black

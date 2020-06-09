@@ -80,23 +80,22 @@ namespace Ex03.GarageLogic
 
         public virtual List<string> GetDataNames()
         {
-            List<string> GetInfoStrs = new List<string>();
-            GetInfoStrs.Add("Model Name");
-            GetInfoStrs.Add("Current Energy Amount");
-            GetInfoStrs.Add("Wheels Manufacturer ");
-            GetInfoStrs.Add("Wheels Air preasure ");
-
-            return GetInfoStrs;
+            List<string> infoStrs = new List<string>();
+            infoStrs.Add("Model Name");
+            infoStrs.Add("Current Energy Amount");
+            infoStrs.Add("Wheels Manufacturer ");
+            infoStrs.Add("Wheels Air preasure ");
+            return infoStrs;
         }
 
         public virtual List<string> GetDetails()
         {
             
             List<string> detailsStrs = new List<string>();
-            detailsStrs.Add("License Number: "+ m_LicesncePlate);
-            detailsStrs.Add("Model: " + m_Model);
-            detailsStrs.Add("Wheels Manufacturer: " + m_WheelsManufacturer);
-            detailsStrs.Add("Wneels air pressure: " + m_Wheels[0].CurrentAirPressure.ToString());
+            detailsStrs.Add("License Number "+ m_LicesncePlate);
+            detailsStrs.Add("Model " + m_Model);
+            detailsStrs.Add("Wheels Manufacturer " + m_WheelsManufacturer);
+            detailsStrs.Add("Wneels air pressure " + m_Wheels[0].CurrentAirPressure.ToString());
             m_EnergySource.GetDetails(detailsStrs);
             return detailsStrs;
         }
@@ -268,7 +267,8 @@ namespace Ex03.GarageLogic
     {
         ModelType = 0,
         CurrentPersent,
-        WheelsManufacturer
+        WheelsManufacturer,
+        WheelsAirPressure
     }
 
 }

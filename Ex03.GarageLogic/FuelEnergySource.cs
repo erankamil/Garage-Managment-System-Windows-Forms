@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Ex03.GarageLogic
 {
-    public class FuelEnergySource : EnergySource
+    internal class FuelEnergySource : EnergySource
     {
         private eFuelType m_FuelType;
 
@@ -15,12 +16,6 @@ namespace Ex03.GarageLogic
             {
                 return base.CurrAmount;
             }
-        }
-
-        public override void GetDetails(List<string> i_VehicleDetails)
-        {
-            base.GetDetails(i_VehicleDetails);
-            i_VehicleDetails.Add("Fuel Type: " + m_FuelType.ToString());
         }
 
         public float MaxFuelAmount
@@ -42,31 +37,36 @@ namespace Ex03.GarageLogic
                 m_FuelType = value;
             }
         }
+        public override void GetDetails(List<string> i_VehicleDetails)
+        {
+            base.GetDetails(i_VehicleDetails);
+            i_VehicleDetails.Add("Fuel Type: " + m_FuelType.ToString());
+        }
 
         public override void Load(float i_Amount)
         {
             base.Load(i_Amount);
         }
-        public static List<string> GetFuelTypes()
+        public static string[] GetFuelTypes()
         {
-            List<string> fuelTypes = new List<string>();
-            fuelTypes.Add(eFuelType.Octan95.ToString());
-            fuelTypes.Add(eFuelType.Octan96.ToString());
-            fuelTypes.Add(eFuelType.Octan98.ToString());
-            fuelTypes.Add(eFuelType.Soler.ToString());
+            string[] fuelTypes = Enum.GetNames(typeof(eFuelType));
             return fuelTypes;
         }
 
         public static bool IsFuelType(string i_Type)
         {
             bool isExist = false;
-            if(int.TryParse(i_Type,out int res))
+            var first = Enum.GetValues(typeof(eFuelType)).Cast<eFuelType>().First();
+            var last = Enum.GetValues(typeof(eFuelType)).Cast<eFuelType>().Last();
+
+            if (int.TryParse(i_Type,out int res))
             {
-                if(res >= (int)eFuelType.Octan95 && res <= (int)eFuelType.Soler )
+                if(res >= (int)first && res <= (int)last)
                 {
                     isExist = true;
                 }
             }
+
             return isExist;
         }
     }

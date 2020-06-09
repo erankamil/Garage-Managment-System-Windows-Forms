@@ -37,15 +37,15 @@ namespace Ex03.GarageLogic
         public override List<string> GetDetails()
         {
             List<string> detailsStrs = base.GetDetails();
-            detailsStrs.Add("Cargo volume: " + m_CargoVolume.ToString());
-            detailsStrs.Add("Has hazardous materials : " + m_HasHazardousmaterials.ToString());
+            detailsStrs.Add("Cargo volume " + m_CargoVolume.ToString());
+            detailsStrs.Add("Has hazardous materials " + m_HasHazardousmaterials.ToString());
             return detailsStrs;
         }
 
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"Truck has Hazardous materials:
+            infoStrs.Add(@"Truck has Hazardous materials
 1) Yes
 2) No");
             infoStrs.Add("Cargo Volume");

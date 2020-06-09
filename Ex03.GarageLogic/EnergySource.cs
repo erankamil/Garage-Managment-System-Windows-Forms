@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    public abstract class EnergySource
+    internal abstract class EnergySource
     {
         private float m_CurrentAmount;
         private float m_MaxAmount;
