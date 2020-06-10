@@ -6,26 +6,25 @@ namespace Ex03.GarageLogic
 {
     internal class MotorCycle : Vehicle
     {
-        private eLicenseType m_LicenseType;
-        private int m_EngineCapacity;
         private const float k_ElectricMaxEnregy = 1.2f;
         private const float k_MaxWheelAirPressure = 30f;
         private const float k_FuelMaxTank = 7f;
-
+        private eLicenseType m_LicenseType;
+        private int m_EngineCapacity;
 
         public MotorCycle(string i_LicencePlate, eEnergyType i_EnergyType) :
             base(i_LicencePlate, i_EnergyType)
         {
-            base.InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.MotorCycle);
+            InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.MotorCycle);
 
             switch (i_EnergyType)
             {
                 case eEnergyType.Electric:
-                    base.EnergySource.MaxAmount = k_ElectricMaxEnregy;
+                    EnergySource.MaxAmount = k_ElectricMaxEnregy;
                     break;
                 case eEnergyType.Fuel:
-                    (base.EnergySource as FuelEnergySource).FuelType = eFuelType.Octan95;
-                    base.EnergySource.MaxAmount = k_FuelMaxTank;
+                    (EnergySource as FuelEnergySource).FuelType = eFuelType.Octan95;
+                    EnergySource.MaxAmount = k_FuelMaxTank;
                     break;
                 default:
                     break;
@@ -70,7 +69,7 @@ namespace Ex03.GarageLogic
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if (i_Index < base.NumOfPropeties)
+            if(i_Index < NumOfPropeties)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }

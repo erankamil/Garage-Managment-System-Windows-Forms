@@ -24,6 +24,7 @@ namespace Ex03.GarageLogic
                     res = currentCostumer.Value;
                 }
             }
+
             return isExist;
         }
 
@@ -32,19 +33,18 @@ namespace Ex03.GarageLogic
             i_Customer.Vehicle.BlowWheelsToMax();
         }
 
-        public bool  IsFuelEngine(CustomerCard i_Customer)
+        public bool IsFuelEngine(CustomerCard i_Customer)
         {
-            return (i_Customer.Vehicle.EnergySource is FuelEnergySource);
+            return i_Customer.Vehicle.EnergySource is FuelEnergySource;
         }
 
         public bool IsElectricEngine(CustomerCard i_Customer)
         {
-           return (i_Customer.Vehicle.EnergySource is ElectricEnergySource);
+           return i_Customer.Vehicle.EnergySource is ElectricEnergySource;
         }
 
         public void RefuelVehicle(CustomerCard i_Cutomer, float i_Amount, string i_TypeStr)
         {
-           
             FuelEnergySource fuelSource = i_Cutomer.Vehicle.EnergySource as FuelEnergySource;
             if (int.TryParse(i_TypeStr, out int res))
             {
@@ -61,18 +61,16 @@ namespace Ex03.GarageLogic
             {
                 throw new FormatException("Invalid Value");
             }
-            
         }
 
         public void RechargeVehicle(CustomerCard i_Cutomer, float i_Amount)
         {
-            ElectricEnergySource fuelSource = i_Cutomer.Vehicle.EnergySource as ElectricEnergySource;
-            fuelSource.Load(i_Amount / 60);
+            i_Cutomer.Vehicle.EnergySource.Load(i_Amount / 60);
         }
 
         public void ChangeCustomerVehicleState(CustomerCard i_Cutomer, eCarState i_State = eCarState.InRepair)
         {
-            i_Cutomer.CarState = i_State; ;
+            i_Cutomer.CarState = i_State;
         }
 
         public void EnterVehicle(Vehicle i_Vehicle, string i_Name, string i_Phone)
@@ -92,10 +90,12 @@ namespace Ex03.GarageLogic
                     licencses.Add(currentCostumer.Key);
                 }
             }
-            if (licencses.Count == 0)
+
+            if(licencses.Count == 0)
             {
                 licencses = null;
             }
+
             return licencses;
         }
 
@@ -118,6 +118,7 @@ namespace Ex03.GarageLogic
             return statuses;
         }
     }
+
     public enum eCarState
     {
         InRepair = 1,

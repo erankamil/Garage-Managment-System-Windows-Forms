@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
 {
     public static class VehicleCreator
     {
-        public static  Vehicle Create(string i_LicencePlate, string i_VehicleType)
+        public static Vehicle Create(string i_LicencePlate, string i_VehicleType)
         {
             Vehicle vehicleToCreate = null;
             if (int.TryParse(i_VehicleType, out int vehicleNum))
@@ -13,8 +13,7 @@ namespace Ex03.GarageLogic
                 if (vehicleNum >= (int)eType.ElectricCar && vehicleNum
                     <= (int)eType.Trunk)
                 {
-                    Enum.TryParse<eType>(vehicleNum.ToString()
-                        , out eType vehicleType);
+                    Enum.TryParse<eType>(vehicleNum.ToString(), out eType vehicleType);
                     switch (vehicleType)
                     {
                         case eType.ElectricCar:
@@ -38,16 +37,17 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_VehicleType, (int)eType.ElectricCar,
-                        (int)eType.Trunk);
+                   throw new ValueOutOfRangeException(i_VehicleType, (int)eType.ElectricCar, (int)eType.Trunk);
                 }
             }
             else
             {
                 throw new NullReferenceException("Car type not supported");
             }
+
             return vehicleToCreate;
         }
+
         public static string[] GetDataNames()
         {
             string[] vehicleTypes = Enum.GetNames(typeof(eType));

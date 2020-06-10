@@ -7,25 +7,25 @@ namespace Ex03.GarageLogic
 {
     internal class Car : Vehicle
     {
-        private eColor m_Color;
-        private eNumOfDoors m_NumOfDoors;
         private const float k_ElectricMaxEnergy = 2.1f;
         private const float k_MaxWheelAirPressure = 32f;
         private const float k_FuelMaxTank = 60f;
+        private eColor m_Color;
+        private eNumOfDoors m_NumOfDoors;
 
         public Car(string i_LicencePlate, eEnergyType i_Type) :
             base(i_LicencePlate, i_Type)
         {
-            base.InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Car);
+            InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Car);
 
             switch (i_Type)
             {
                 case eEnergyType.Electric:
-                    base.EnergySource.MaxAmount = k_ElectricMaxEnergy;
+                    EnergySource.MaxAmount = k_ElectricMaxEnergy;
                     break;
                 case eEnergyType.Fuel:
-                    (base.EnergySource as FuelEnergySource).FuelType = eFuelType.Octan96;
-                    base.EnergySource.MaxAmount =k_FuelMaxTank;
+                    (EnergySource as FuelEnergySource).FuelType = eFuelType.Octan96;
+                    EnergySource.MaxAmount = k_FuelMaxTank;
                     break;
                 default:
                     break;
@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if (i_Index < base.NumOfPropeties)
+            if(i_Index < NumOfPropeties)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }
@@ -148,7 +148,5 @@ namespace Ex03.GarageLogic
             color = 4,
             numOfDoors 
         }
-
     }
-
 }

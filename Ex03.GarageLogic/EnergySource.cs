@@ -9,16 +9,22 @@ namespace Ex03.GarageLogic
         private float m_MaxAmount;
         private eEnergyType m_Type;
 
-        public  void Load(float i_Amount)
+        public void Load(float i_Amount)
         {
-            if (m_CurrentAmount + i_Amount <= m_MaxAmount)
+            if(m_CurrentAmount + i_Amount <= m_MaxAmount)
             {
                 m_CurrentAmount += i_Amount;
             }
             else
             {
-                throw new ValueOutOfRangeException(i_Amount.ToString(), 0,
-                    m_MaxAmount - m_CurrentAmount);
+                if(this is ElectricEnergySource)
+                {
+                    throw new ValueOutOfRangeException((i_Amount * 60).ToString(), 0, m_MaxAmount - m_CurrentAmount);
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(i_Amount.ToString(), 0, m_MaxAmount - m_CurrentAmount);
+                }
             }
         }
 
@@ -33,6 +39,7 @@ namespace Ex03.GarageLogic
             {
                 return m_CurrentAmount;
             }
+
             set
             {
                 m_CurrentAmount = value;
@@ -45,6 +52,7 @@ namespace Ex03.GarageLogic
             {
                 return m_MaxAmount;
             }
+
             set
             {
                 m_MaxAmount = value;
@@ -64,6 +72,7 @@ namespace Ex03.GarageLogic
             }
         }
     }
+
     public enum eEnergyType
     {
         Electric = 1,

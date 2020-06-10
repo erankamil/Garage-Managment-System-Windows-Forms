@@ -1,24 +1,22 @@
 ﻿using System.Collections.Generic;
 using System;
 
-
 namespace Ex03.GarageLogic
 {
     public class Vehicle
     {
-        private string m_Model;
+        private const int k_NumOfProperties = 4;
         private readonly string m_LicesncePlate;
+        private string m_Model;
         private float m_EnergyPercent;
         private Wheel[] m_Wheels;
         private EnergySource m_EnergySource;
         private string m_WheelsManufacturer;
-        private const int k_NumOfProperties = 4;
-
+ 
         internal class Wheel
         {
             private float m_CurrentAirPressure;
             private float m_MaxAirPressure;
-
 
             public float CurrentAirPressure
             {
@@ -39,6 +37,7 @@ namespace Ex03.GarageLogic
                 {
                     return m_MaxAirPressure;
                 }
+
                 set
                 {
                     m_MaxAirPressure = value;
@@ -59,15 +58,13 @@ namespace Ex03.GarageLogic
                 case eEnergyType.Electric:
                     m_EnergySource = new ElectricEnergySource();
                     break;
-                case  eEnergyType.Fuel:
+                case eEnergyType.Fuel:
                     m_EnergySource = new FuelEnergySource();
                     break;
                 default:
                     break;
-
             }
         }
-
 
         public Vehicle(Vehicle i_Vehicle)
         {
@@ -90,9 +87,8 @@ namespace Ex03.GarageLogic
 
         public virtual List<string> GetDetails()
         {
-            
             List<string> detailsStrs = new List<string>();
-            detailsStrs.Add("License Number "+ m_LicesncePlate);
+            detailsStrs.Add("License Number " + m_LicesncePlate);
             detailsStrs.Add("Model " + m_Model);
             detailsStrs.Add("Wheels Manufacturer " + m_WheelsManufacturer);
             detailsStrs.Add("Wneels air pressure " + m_Wheels[0].CurrentAirPressure.ToString());
@@ -128,7 +124,7 @@ namespace Ex03.GarageLogic
 
         public void InitializeWheels(float i_MaxAirPressure, eVehicleWheels i_NumOfWheels)
         {
-            m_Wheels= new Wheel[(int)i_NumOfWheels];
+            m_Wheels = new Wheel[(int)i_NumOfWheels];
             for (int i = 0; i < (int)i_NumOfWheels; i++)
             {
                m_Wheels[i] = new Wheel();
@@ -136,7 +132,6 @@ namespace Ex03.GarageLogic
 
             foreach (Wheel wheel in m_Wheels)
             {
-
                 wheel.MaxAirPressure = i_MaxAirPressure;
             }
         }
@@ -172,7 +167,7 @@ namespace Ex03.GarageLogic
                 if (res >= 0 && res <= m_EnergySource.MaxAmount)
                 {
                     m_EnergySource.CurrAmount = res;
-                    m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount)*100;
+                    m_EnergyPercent = (m_EnergySource.CurrAmount / m_EnergySource.MaxAmount) * 100;
                 }
                 else
                 {
@@ -249,6 +244,7 @@ namespace Ex03.GarageLogic
             {
                 return m_Wheels;
             }
+
             set
             {
                 m_Wheels = value;
@@ -270,8 +266,4 @@ namespace Ex03.GarageLogic
         WheelsManufacturer,
         WheelsAirPressure
     }
-
 }
-
-
-

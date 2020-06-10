@@ -8,23 +8,17 @@ namespace Ex03.GarageLogic
     {
         private eFuelType m_FuelType;
 
-        public FuelEnergySource() : base() { }
-
         public eFuelType FuelType
         {
             get
             {
                 return m_FuelType;
             }
+
             set
             {
                 m_FuelType = value;
             }
-        }
-        public override void GetDetails(List<string> i_VehicleDetails)
-        {
-            base.GetDetails(i_VehicleDetails);
-            i_VehicleDetails.Add("Fuel Type: " + m_FuelType.ToString());
         }
 
         public static string[] GetFuelTypes()
@@ -39,7 +33,7 @@ namespace Ex03.GarageLogic
             var first = Enum.GetValues(typeof(eFuelType)).Cast<eFuelType>().First();
             var last = Enum.GetValues(typeof(eFuelType)).Cast<eFuelType>().Last();
 
-            if (int.TryParse(i_Type,out int res))
+            if(int.TryParse(i_Type, out int res))
             {
                 if(res >= (int)first && res <= (int)last)
                 {
@@ -48,6 +42,12 @@ namespace Ex03.GarageLogic
             }
 
             return isExist;
+        }
+
+        public override void GetDetails(List<string> i_VehicleDetails)
+        {
+            base.GetDetails(i_VehicleDetails);
+            i_VehicleDetails.Add("Fuel Type: " + m_FuelType.ToString());
         }
     }
 

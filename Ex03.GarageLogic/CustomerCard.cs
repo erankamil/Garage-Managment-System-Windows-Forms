@@ -1,5 +1,4 @@
-﻿
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public class CustomerCard
     {
@@ -16,7 +15,6 @@ namespace Ex03.GarageLogic
             m_CarState = eCarState.InRepair;
         }
 
-
         public Vehicle Vehicle
         {
             get
@@ -25,13 +23,13 @@ namespace Ex03.GarageLogic
             }
         }
 
-
         public string Name
         {
             get
             {
                 return m_Name;
             }
+
             set
             {
                 m_Name = value;
@@ -44,12 +42,11 @@ namespace Ex03.GarageLogic
             {
                 return m_CarState;
             }
+
             set
             {
                 m_CarState = value;
             }
         }
     }
-
-
 }

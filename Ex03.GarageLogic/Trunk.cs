@@ -6,16 +6,16 @@ namespace Ex03.GarageLogic
 {
     internal class Trunk : Vehicle
     {
-        private float m_CargoVolume;
-        private bool m_HasHazardousmaterials;
         private const float k_MaxWheelAirPressure = 28f;
         private const float k_FuelMaxTank = 120f;
+        private float m_CargoVolume;
+        private bool m_HasHazardousmaterials;
 
         public Trunk(string i_LicencePlate) : base(i_LicencePlate, eEnergyType.Fuel)
         {
-            base.InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Truck);
-            base.EnergySource.MaxAmount = k_FuelMaxTank;
-            (base.EnergySource as FuelEnergySource).FuelType = eFuelType.Soler;
+            InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Truck);
+            EnergySource.MaxAmount = k_FuelMaxTank;
+            (EnergySource as FuelEnergySource).FuelType = eFuelType.Soler;
         }
 
         public float CargoVolume
@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if (i_Index < base.NumOfPropeties)
+            if(i_Index < NumOfPropeties)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }
@@ -109,7 +109,6 @@ namespace Ex03.GarageLogic
             {
                 throw new FormatException("Invalid Input");
             }
-
         }
 
         public void UpdateCargoVolume(string i_CargoVolme)
@@ -143,5 +142,4 @@ namespace Ex03.GarageLogic
         Yes = 1,
         No
     }
-
 }
