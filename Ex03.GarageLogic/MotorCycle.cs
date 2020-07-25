@@ -50,19 +50,16 @@ namespace Ex03.GarageLogic
         public override List<string> GetDetails()
         {
             List<string> detailsStrs = base.GetDetails();
-            detailsStrs.Add("License type " + m_LicenseType.ToString());
-            detailsStrs.Add("Engine capacity " + m_EngineCapacity.ToString());
+            detailsStrs.Add("License type: " + m_LicenseType.ToString());
+            detailsStrs.Add("Engine capacity: " + m_EngineCapacity.ToString());
             return detailsStrs;
         }
 
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"License Types:
-1) A
-2) A2
-3) AA
-4) B");
+            infoStrs.Add(@"License types:
+1)A 2)A2 3)AA 4)B");
             infoStrs.Add("Engine capacity:");
             return infoStrs;
         }

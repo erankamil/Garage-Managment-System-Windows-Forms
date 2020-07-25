@@ -35,20 +35,16 @@ namespace Ex03.GarageLogic
         public override List<string> GetDetails()
         {
             List<string> detailsStrs = base.GetDetails();
-            detailsStrs.Add("Color " + m_Color.ToString());
-            detailsStrs.Add("Number of doors " + m_NumOfDoors.ToString());
+            detailsStrs.Add("Color: " + m_Color.ToString());
+            detailsStrs.Add("Number of doors: " + m_NumOfDoors.ToString());
             return detailsStrs;
         }
 
         public override List<string> GetDataNames()
         {
             List<string> infoStrs = base.GetDataNames();
-            infoStrs.Add(@"Color options:
-1) Red
-2) White
-3) Black
-4) Silver");
-            infoStrs.Add("Number Of Doors:");
+            infoStrs.Add("Color options:");
+            infoStrs.Add("Number Of doors:");
             return infoStrs;
         }
 
@@ -118,7 +114,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_Color, (int)first, (int)last);
+                    ValueOutOfRangeException ec = new ValueOutOfRangeException(i_Color, (int)first, (int)last);
                 }
             }
             else

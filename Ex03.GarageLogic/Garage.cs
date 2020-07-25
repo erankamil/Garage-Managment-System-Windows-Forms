@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Text;
 
 namespace Ex03.GarageLogic
 {
@@ -45,21 +46,15 @@ namespace Ex03.GarageLogic
 
         public void RefuelVehicle(CustomerCard i_Cutomer, float i_Amount, string i_TypeStr)
         {
+            eFuelType eType = FromStringToVehicleFuelTypeEnum(i_TypeStr);
             FuelEnergySource fuelSource = i_Cutomer.Vehicle.EnergySource as FuelEnergySource;
-            if (int.TryParse(i_TypeStr, out int res))
+            if (fuelSource.FuelType == eType)
             {
-                if ((int)fuelSource.FuelType == res)
-                {
-                    fuelSource.Load(i_Amount);
-                }
-                else
-                {
-                    throw new ArgumentException("Fuel type is not suitable");
-                }
+                fuelSource.Load(i_Amount);
             }
             else
             {
-                throw new FormatException("Invalid Value");
+                throw new ArgumentException("Fuel type is not suitable to this vehicle");
             }
         }
 
@@ -68,9 +63,10 @@ namespace Ex03.GarageLogic
             i_Cutomer.Vehicle.EnergySource.Load(i_Amount / 60);
         }
 
-        public void ChangeCustomerVehicleState(CustomerCard i_Cutomer, eCarState i_State = eCarState.InRepair)
+        public void ChangeCustomerVehicleState(CustomerCard i_Cutomer, string i_StateToChangeTo)
         {
-            i_Cutomer.CarState = i_State;
+            eCarState state = FromStringToCarStateEnum(i_StateToChangeTo);
+            i_Cutomer.CarState = state;
         }
 
         public void EnterVehicle(Vehicle i_Vehicle, string i_Name, string i_Phone)
@@ -80,14 +76,21 @@ namespace Ex03.GarageLogic
             m_CostumerBook.Add(key, cutomerToAdd);
         }
 
-        public List<string> GetVehicleByStatus(eCarState i_State)
+        private List<string> getLicences(eCarState i_State, string i_VehicleType)
         {
             List<string> licencses = new List<string>();
             foreach (KeyValuePair<string, CustomerCard> currentCostumer in m_CostumerBook)
             {
-                if(currentCostumer.Value.CarState == i_State)
+                if (i_VehicleType == "All")
                 {
                     licencses.Add(currentCostumer.Key);
+                }
+                else
+                {
+                    if (currentCostumer.Value.CarState == i_State)
+                    {
+                        licencses.Add(currentCostumer.Key);
+                    }
                 }
             }
 
@@ -98,6 +101,78 @@ namespace Ex03.GarageLogic
 
             return licencses;
         }
+
+        public List<string> GetVehiclesByState(string i_VehicleState)
+        {
+            eCarState state = eCarState.InRepair;
+            List<string> licensesByState = null;
+            if (i_VehicleState != "All")
+            {
+                state = FromStringToCarStateEnum(i_VehicleState);
+            }
+            licensesByState = getLicences(state, i_VehicleState);
+            return licensesByState;
+        }
+
+        public eCarState FromStringToCarStateEnum(string i_VehicleState)
+        {
+            eCarState res;
+            switch (i_VehicleState)
+            {
+                case "InRepair":
+                    res = eCarState.InRepair;
+                    break;
+                case "Repaired":
+                    res = eCarState.Repaired;
+                    break;
+                case "Paid":
+                    res = eCarState.Paid;
+                    break;
+                default:
+                    int number;
+                    if(int.TryParse(i_VehicleState,out number) == false)
+                    {
+                        throw new FormatException("invalid state");
+                    }
+                    else
+                    {
+                        throw new ValueOutOfRangeException(i_VehicleState, 1, 3);
+                    }
+            }
+            return res;
+        }
+
+        public eFuelType FromStringToVehicleFuelTypeEnum(string i_TypeStr)
+        {
+            eFuelType eType;
+            switch (i_TypeStr)
+            {
+                case "Octan95":
+                    eType = eFuelType.Octan95;
+                    break;
+                case "Octan96":
+                    eType = eFuelType.Octan96;
+                    break;
+                case "Octan98":
+                    eType = eFuelType.Octan98;
+                    break;
+                case "Soler":
+                    eType = eFuelType.Soler;
+                    break;
+                   default:
+                    int type;
+                    if (int.TryParse(i_TypeStr, out type) == false)
+                    {
+                        throw new FormatException("invalid fuel type");
+                    }
+                    else
+                    {
+                        throw new ValueOutOfRangeException(i_TypeStr, 1, 4);
+                    }
+            }
+            return eType;
+        }
+
 
         public string[] GetFuelTypes()
         {
@@ -111,10 +186,13 @@ namespace Ex03.GarageLogic
 
         public List<string> GetStatusOptions()
         {
-            List<string> statuses = new List<string>();
-            statuses.Add(eCarState.InRepair.ToString());
-            statuses.Add(eCarState.Repaired.ToString());
-            statuses.Add(eCarState.Paid.ToString());
+            List<string> statuses = new List<string>(4);
+            foreach(string curr in Enum.GetNames(typeof(eCarState)))
+            {
+                statuses.Add(curr);
+            }
+
+            statuses.Add("All");
             return statuses;
         }
     }

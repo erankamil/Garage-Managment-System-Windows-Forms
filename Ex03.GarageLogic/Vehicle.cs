@@ -78,20 +78,20 @@ namespace Ex03.GarageLogic
         public virtual List<string> GetDataNames()
         {
             List<string> infoStrs = new List<string>();
-            infoStrs.Add("Model Name:");
-            infoStrs.Add("Current Energy Amount:");
-            infoStrs.Add("Wheels Manufacturer:");
-            infoStrs.Add("Wheels Air preasure:");
+            infoStrs.Add("Model name:");
+            infoStrs.Add("Current energy amount:");
+            infoStrs.Add("Wheels manufacturer:");
+            infoStrs.Add("Wheels air preasure:");
             return infoStrs;
         }
 
         public virtual List<string> GetDetails()
         {
             List<string> detailsStrs = new List<string>();
-            detailsStrs.Add("License Number " + m_LicesncePlate);
-            detailsStrs.Add("Model " + m_Model);
-            detailsStrs.Add("Wheels Manufacturer " + m_WheelsManufacturer);
-            detailsStrs.Add("Wneels air pressure " + m_Wheels[0].CurrentAirPressure.ToString());
+            detailsStrs.Add("License number: " + m_LicesncePlate);
+            detailsStrs.Add("Model: " + m_Model);
+            detailsStrs.Add("Wheels manufacturer: " + m_WheelsManufacturer);
+            detailsStrs.Add("Wneels air pressure: " + m_Wheels[0].CurrentAirPressure.ToString());
             m_EnergySource.GetDetails(detailsStrs);
             return detailsStrs;
         }
@@ -100,7 +100,9 @@ namespace Ex03.GarageLogic
         {
             if(string.IsNullOrEmpty(i_VehicleInfoStr) || string.IsNullOrWhiteSpace(i_VehicleInfoStr))
             {
-                throw new ArgumentException();
+               string msg =string.Format("field {0} is empty.",i_Index+1);
+               ArgumentException ex = new ArgumentException(msg);
+               throw ex;
             }
             else
             {

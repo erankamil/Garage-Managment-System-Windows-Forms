@@ -15,11 +15,21 @@
             m_CarState = eCarState.InRepair;
         }
 
+        public CustomerCard(Vehicle i_Vehicle)
+        {
+            m_Vehicle = i_Vehicle;
+            m_CarState = eCarState.InRepair;
+        }
+
         public Vehicle Vehicle
         {
             get
             {
                 return m_Vehicle;
+            }
+            set
+            {
+                m_Vehicle = value;
             }
         }
 

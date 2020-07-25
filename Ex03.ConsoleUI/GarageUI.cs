@@ -347,10 +347,10 @@ namespace Ex03.ConsoleUI
         private string statusesMessages()
         {
             string choice;
-            List<string> statuses = m_GarageManager.GetStatusOptions();
+            string[] statuses = m_GarageManager.GetStatusOptions();
             Console.WriteLine("Press:");
 
-            for (int i = 0; i < statuses.Count; i++)
+            for (int i = 0; i < statuses.Length; i++)
             {
                 Console.WriteLine("{0}) {1}", (i + 1).ToString(), statuses[i]);
             }
@@ -360,7 +360,7 @@ namespace Ex03.ConsoleUI
 
         private void printVehiclesByStatus(GarageLogic.eCarState i_State)
         {
-            List<string> licenses = m_GarageManager.GetVehicleByStatus(i_State);
+            List<string> licenses = m_GarageManager.GetVehiclesByState(i_State.ToString());
             if(licenses != null)
             {
                 Console.WriteLine("Licenses number with state {0}:", i_State.ToString());
@@ -377,7 +377,7 @@ namespace Ex03.ConsoleUI
 
         private void changeCustomerVehicleState(GarageLogic.CustomerCard i_Customer, GarageLogic.eCarState i_State)
         {
-            m_GarageManager.ChangeCustomerVehicleState(i_Customer, i_State);
+            m_GarageManager.ChangeCustomerVehicleState(i_Customer, i_State.ToString());
             Console.WriteLine("{0}'s Vehicle changed its status to {1} ", i_Customer.Name, i_Customer.CarState);
         }
 
@@ -400,7 +400,7 @@ namespace Ex03.ConsoleUI
             do
             {
                 Console.WriteLine("Please choose your vehicle type:");
-               string[] vehicleTypes = GarageLogic.VehicleCreator.GetDataNames();
+               string[] vehicleTypes = GarageLogic.VehicleCreator.GetVehicleTypeNames();
                 int i = 1;
                 foreach (string type in vehicleTypes)
                 {
