@@ -23,7 +23,7 @@ namespace Ex03.WindowsFormUI
         {
             string title = i_VehicleState;
             int index = 1;
-            LabelShowVehicles.Text = ($"Vheicle info by state: {i_VehicleState}");
+            LabelShowVehicles.Text = ($"Vehicle info by state: {i_VehicleState}");
             foreach (CustomerCard currCustomer in i_CustomersToShow)
             {
                 ListBoxVehicles.Items.Add($"{index}) Name: {currCustomer.Name}, License Number: {currCustomer.Vehicle.LicesncePlate}");

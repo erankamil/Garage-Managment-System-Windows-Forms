@@ -76,20 +76,23 @@ namespace Ex03.GarageLogic
 
         public void RefuelVehicle(CustomerCard i_Customer, float i_Amount, string i_TypeStr)
         {
-            eFuelType eType = FromStringToVehicleFuelTypeEnum(i_TypeStr);
-            FuelEnergySource fuelSource = i_Customer.Vehicle.EnergySource as FuelEnergySource;
-            if (fuelSource.FuelType == eType)
+            eFuelType fuelType;
+            if (IsFuelType(i_TypeStr, out fuelType) == true)
             {
-                fuelSource.Load(i_Amount);
-                i_Customer.Vehicle.UpdateEnergyPercentageLeft();
-                if(r_ConnectedToDB == true)
+                FuelEnergySource fuelSource = i_Customer.Vehicle.EnergySource as FuelEnergySource;
+                if (fuelSource.FuelType == fuelType)
                 {
-                    addEnergyDBactions(i_Customer);
+                    fuelSource.Load(i_Amount);
+                    i_Customer.Vehicle.UpdateEnergyPercentageLeft();
+                    if (r_ConnectedToDB == true)
+                    {
+                        addEnergyDBactions(i_Customer);
+                    }
                 }
-            }
-            else
-            {
-                throw new ArgumentException("Fuel type is not suitable to this vehicle");
+                else
+                {
+                    throw new ArgumentException("Fuel type is not suitable to this vehicle");
+                }
             }
         }
 
@@ -183,11 +186,11 @@ namespace Ex03.GarageLogic
             return vehiclesByState;
         }
 
-        public bool IsValidVehicleState(string i_VehicleState, out eVehicleState io_VehicleState)
+        public bool IsValidVehicleState(string i_VehicleState, out eVehicleState o_VehicleState)
         {
             bool isValid = true;
 
-            if (Enum.TryParse(i_VehicleState, out io_VehicleState) == false)
+            if (Enum.TryParse(i_VehicleState, out o_VehicleState) == false)
             {
                 int choiceNumeric;
                 if(int.TryParse(i_VehicleState, out choiceNumeric) == false)
@@ -203,35 +206,23 @@ namespace Ex03.GarageLogic
             return isValid;
         }
 
-        public eFuelType FromStringToVehicleFuelTypeEnum(string i_TypeStr)
+        public bool IsFuelType(string i_TypeStr, out eFuelType o_FuelType)
         {
-            eFuelType eType;
-            switch (i_TypeStr)
+            bool isValid = true;
+            if (Enum.TryParse(i_TypeStr, out o_FuelType) == false)
             {
-                case "Octan95":
-                    eType = eFuelType.Octan95;
-                    break;
-                case "Octan96":
-                    eType = eFuelType.Octan96;
-                    break;
-                case "Octan98":
-                    eType = eFuelType.Octan98;
-                    break;
-                case "Soler":
-                    eType = eFuelType.Soler;
-                    break;
-                default:
-                    int type;
-                    if (int.TryParse(i_TypeStr, out type) == false)
-                    {
-                        throw new FormatException("invalid fuel type");
-                    }
-                    else
-                    {
-                        throw new ValueOutOfRangeException(i_TypeStr, 1, 4);
-                    }
+                int choiceNumeric;
+                if (int.TryParse(i_TypeStr, out choiceNumeric) == false)
+                {
+                    throw new FormatException("invalid state");
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException(i_TypeStr, 1, 4);
+                }
             }
-            return eType;
+
+            return isValid;
         }
 
 
@@ -268,48 +259,6 @@ namespace Ex03.GarageLogic
             r_DBCollection.UpdateOne(DBFilter, i_Update);
         }
     }
-
-
-    //public static Garage Instance { get { return Singleton<Garage>.Instance; } }
-
-    //public static class Singleton<T> where T : class
-    //{
-    //    private static T s_Instance;
-
-    //    private static object s_LockObj = new object();
-
-    //    static Singleton()
-    //    {
-    //    }
-
-    //    public static T Instance
-    //    {
-    //        get
-    //        {
-    //            if (s_Instance == null)
-    //            {
-    //                lock (s_LockObj)
-    //                {
-    //                    if (s_Instance == null)
-    //                    {
-    //                        Type typeOfT = s_Instance.GetType();
-    //                        foreach (MethodInfo method in typeOfT.GetMethods())
-    //                        {
-    //                            if (method.Name == typeOfT.Name && method.IsPrivate && method.GetParameters().Length == 0)
-    //                            {
-    //                                s_Instance = (T)method.Invoke(null, null);
-    //                                break;
-    //                            }
-    //                        }
-    //                    }
-    //                }
-    //            }
-
-    //            return s_Instance;
-    //        }
-    //    }
-
-    //}
 
     public enum eVehicleState
     {

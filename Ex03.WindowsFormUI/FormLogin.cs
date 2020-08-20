@@ -78,6 +78,12 @@ youre going to connent locally now";
                     this.textBoxUserName.Text = this.textBoxPassword.Text = string.Empty;
                 }
             }
+            else
+            {
+                string message = "Username or Password empty!";
+                string title = "Invalid input";
+                MessageBox.Show(message, title);
+            }
         }
 
         private void connectToDB()

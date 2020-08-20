@@ -12,6 +12,7 @@ namespace Ex03.WindowsFormUI
     {
         public static void Main()
         {
+            Application.EnableVisualStyles();
             FormLogin fromLogin = new FormLogin();
             fromLogin.ShowDialog();
 

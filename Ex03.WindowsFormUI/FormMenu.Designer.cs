@@ -65,6 +65,7 @@
             // 
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Font = new System.Drawing.Font("Segoe Print", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWelcome.ForeColor = System.Drawing.Color.MidnightBlue;
             this.labelWelcome.Location = new System.Drawing.Point(30, -4);
             this.labelWelcome.Name = "labelWelcome";
             this.labelWelcome.Size = new System.Drawing.Size(451, 57);
@@ -190,7 +191,7 @@
             // labelEnvironment
             // 
             this.labelEnvironment.AutoSize = true;
-            this.labelEnvironment.Location = new System.Drawing.Point(127, 53);
+            this.labelEnvironment.Location = new System.Drawing.Point(101, 53);
             this.labelEnvironment.Name = "labelEnvironment";
             this.labelEnvironment.Size = new System.Drawing.Size(71, 13);
             this.labelEnvironment.TabIndex = 20;
@@ -200,9 +201,9 @@
             // 
             this.pictureBoxDB.BackgroundImage = global::Ex03.WindowsFormUI.Properties.Resources.database_with_a_check_mark;
             this.pictureBoxDB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxDB.Location = new System.Drawing.Point(327, 47);
+            this.pictureBoxDB.Location = new System.Drawing.Point(300, 46);
             this.pictureBoxDB.Name = "pictureBoxDB";
-            this.pictureBoxDB.Size = new System.Drawing.Size(32, 28);
+            this.pictureBoxDB.Size = new System.Drawing.Size(28, 24);
             this.pictureBoxDB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxDB.TabIndex = 21;
             this.pictureBoxDB.TabStop = false;

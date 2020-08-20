@@ -29,6 +29,7 @@ namespace Ex03.WindowsFormUI
             else
             {
                 this.labelEnvironment.Text = "Logged in Locally";
+                this.labelEnvironment.Location = new Point(182, 53);
                 this.pictureBoxDB.Visible = false;
             }
         }
