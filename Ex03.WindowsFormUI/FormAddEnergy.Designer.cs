@@ -31,7 +31,7 @@
             this.labelAddEnergy = new System.Windows.Forms.Label();
             this.labelAmountToAdd = new System.Windows.Forms.Label();
             this.textBoxMinutesToCharge = new System.Windows.Forms.TextBox();
-            this.buttonChargeVehicle = new System.Windows.Forms.Button();
+            this.buttonAddEnergy = new System.Windows.Forms.Button();
             this.labelFuelTypes = new System.Windows.Forms.Label();
             this.comboBoxFuelTypes = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
@@ -45,7 +45,6 @@
             this.labelAddEnergy.Size = new System.Drawing.Size(147, 16);
             this.labelAddEnergy.TabIndex = 2;
             this.labelAddEnergy.Text = "Enter minutes to charge";
-            this.labelAddEnergy.Click += new System.EventHandler(this.labelAddEnergy_Click);
             // 
             // labelAmountToAdd
             // 
@@ -63,16 +62,16 @@
             this.textBoxMinutesToCharge.Size = new System.Drawing.Size(120, 20);
             this.textBoxMinutesToCharge.TabIndex = 4;
             // 
-            // buttonChargeVehicle
+            // buttonAddEnergy
             // 
-            this.buttonChargeVehicle.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.buttonChargeVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChargeVehicle.Location = new System.Drawing.Point(127, 122);
-            this.buttonChargeVehicle.Name = "buttonChargeVehicle";
-            this.buttonChargeVehicle.Size = new System.Drawing.Size(80, 32);
-            this.buttonChargeVehicle.TabIndex = 5;
-            this.buttonChargeVehicle.Text = "Charge";
-            this.buttonChargeVehicle.UseVisualStyleBackColor = false;
+            this.buttonAddEnergy.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonAddEnergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEnergy.Location = new System.Drawing.Point(127, 122);
+            this.buttonAddEnergy.Name = "buttonAddEnergy";
+            this.buttonAddEnergy.Size = new System.Drawing.Size(80, 32);
+            this.buttonAddEnergy.TabIndex = 5;
+            this.buttonAddEnergy.Text = "Charge";
+            this.buttonAddEnergy.UseVisualStyleBackColor = false;
             // 
             // labelFuelTypes
             // 
@@ -97,13 +96,13 @@
             // 
             // FormAddEnergy
             // 
-            this.AcceptButton = this.buttonChargeVehicle;
+            this.AcceptButton = this.buttonAddEnergy;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(345, 166);
             this.Controls.Add(this.comboBoxFuelTypes);
             this.Controls.Add(this.labelFuelTypes);
-            this.Controls.Add(this.buttonChargeVehicle);
+            this.Controls.Add(this.buttonAddEnergy);
             this.Controls.Add(this.textBoxMinutesToCharge);
             this.Controls.Add(this.labelAmountToAdd);
             this.Controls.Add(this.labelAddEnergy);
@@ -122,7 +121,7 @@
         private System.Windows.Forms.Label labelAddEnergy;
         private System.Windows.Forms.Label labelAmountToAdd;
         private System.Windows.Forms.TextBox textBoxMinutesToCharge;
-        private System.Windows.Forms.Button buttonChargeVehicle;
+        private System.Windows.Forms.Button buttonAddEnergy;
         private System.Windows.Forms.Label labelFuelTypes;
         private System.Windows.Forms.ComboBox comboBoxFuelTypes;
     }

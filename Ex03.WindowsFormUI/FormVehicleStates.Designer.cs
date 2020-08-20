@@ -31,7 +31,8 @@
             this.labelChooseState = new System.Windows.Forms.Label();
             this.labelVehicleState = new System.Windows.Forms.Label();
             this.comboBoxVehicleStates = new System.Windows.Forms.ComboBox();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonDoAction = new System.Windows.Forms.Button();
+            this.buttonShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelChooseState
@@ -61,23 +62,34 @@
             this.comboBoxVehicleStates.Size = new System.Drawing.Size(121, 21);
             this.comboBoxVehicleStates.TabIndex = 2;
             // 
-            // buttonOk
+            // buttonDoAction
             // 
-            this.buttonOk.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOk.Location = new System.Drawing.Point(130, 122);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(80, 32);
-            this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Enter";
-            this.buttonOk.UseVisualStyleBackColor = false;
+            this.buttonDoAction.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonDoAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDoAction.Location = new System.Drawing.Point(130, 122);
+            this.buttonDoAction.Name = "buttonDoAction";
+            this.buttonDoAction.Size = new System.Drawing.Size(80, 32);
+            this.buttonDoAction.TabIndex = 4;
+            this.buttonDoAction.Text = "Show";
+            this.buttonDoAction.UseVisualStyleBackColor = false;
+            // 
+            // buttonShow
+            // 
+            this.buttonShow.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonShow.Location = new System.Drawing.Point(130, 122);
+            this.buttonShow.Name = "buttonShow";
+            this.buttonShow.Size = new System.Drawing.Size(80, 32);
+            this.buttonShow.TabIndex = 4;
+            this.buttonShow.Text = "Show";
+            this.buttonShow.UseVisualStyleBackColor = false;
             // 
             // FormVehicleStates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(345, 166);
-            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.buttonDoAction);
             this.Controls.Add(this.comboBoxVehicleStates);
             this.Controls.Add(this.labelVehicleState);
             this.Controls.Add(this.labelChooseState);
@@ -96,6 +108,7 @@
         private System.Windows.Forms.Label labelChooseState;
         private System.Windows.Forms.Label labelVehicleState;
         private System.Windows.Forms.ComboBox comboBoxVehicleStates;
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonDoAction;
+        private System.Windows.Forms.Button buttonShow;
     }
 }

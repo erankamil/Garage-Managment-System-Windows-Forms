@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace Ex03.GarageLogic
 {
@@ -48,6 +51,18 @@ namespace Ex03.GarageLogic
         {
             base.GetDetails(i_VehicleDetails);
             i_VehicleDetails.Add("Fuel Type: " + m_FuelType.ToString());
+        }
+
+        internal override void RegisterClass()
+        {
+            base.RegisterClass();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(FuelEnergySource)))
+            {
+                BsonClassMap.RegisterClassMap<FuelEnergySource>(cm =>
+                {
+                    cm.MapField(c => c.m_FuelType).SetElementName("FuelType").SetSerializer(new EnumSerializer<eFuelType>(BsonType.String));
+                });
+            }
         }
     }
 

@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace Ex03.GarageLogic
 {
-    public class Vehicle
+    public abstract class Vehicle
     {
         private const int k_NumOfProperties = 4;
-        private readonly string m_LicesncePlate;
+        private  string m_LicesncePlate;
         private string m_Model;
         private float m_EnergyPercent;
         private Wheel[] m_Wheels;
@@ -17,6 +20,11 @@ namespace Ex03.GarageLogic
         {
             private float m_CurrentAirPressure;
             private float m_MaxAirPressure;
+
+            public Wheel(float i_MaximumAirPressure)
+            {
+                m_MaxAirPressure = i_MaximumAirPressure;
+            }
 
             public float CurrentAirPressure
             {
@@ -47,6 +55,18 @@ namespace Ex03.GarageLogic
             public void AirBlowing()
             {
                 m_CurrentAirPressure = this.MaxAirPressure;
+            }
+
+            internal void RegisterClass()
+            {
+                if (!BsonClassMap.IsClassMapRegistered(typeof(Wheel)))
+                {
+                    BsonClassMap.RegisterClassMap<Vehicle.Wheel>(cm =>
+                    {
+                        cm.MapField(c => c.m_CurrentAirPressure).SetElementName("CurrentAirPressure");
+                        cm.MapField(c => c.m_MaxAirPressure).SetElementName("MaximumAirPressure");
+                    });
+                }
             }
         }
 
@@ -88,10 +108,11 @@ namespace Ex03.GarageLogic
         public virtual List<string> GetDetails()
         {
             List<string> detailsStrs = new List<string>();
-            detailsStrs.Add("License number: " + m_LicesncePlate);
-            detailsStrs.Add("Model: " + m_Model);
-            detailsStrs.Add("Wheels manufacturer: " + m_WheelsManufacturer);
-            detailsStrs.Add("Wneels air pressure: " + m_Wheels[0].CurrentAirPressure.ToString());
+            detailsStrs.Add($"License number: {m_LicesncePlate}");
+            detailsStrs.Add($"Model: {m_Model}");
+            detailsStrs.Add($"Wheels manufacturer: {m_WheelsManufacturer}");
+            detailsStrs.Add($"Wneels air pressure:  {m_Wheels[0].CurrentAirPressure.ToString()}");
+            detailsStrs.Add($"Energy precentage left: {m_EnergyPercent}%");
             m_EnergySource.GetDetails(detailsStrs);
             return detailsStrs;
         }
@@ -112,16 +133,21 @@ namespace Ex03.GarageLogic
                         m_Model = i_VehicleInfoStr;
                         break;
                     case (int)eVehicleInfo.CurrentPersent:
-                        updateEnergyPersent(i_VehicleInfoStr);
+                        SetEnergyPersent(i_VehicleInfoStr);
                         break;
                     case (int)eVehicleInfo.WheelsManufacturer:
                         m_WheelsManufacturer = i_VehicleInfoStr;
                         break;
                     default:
-                        updateWheelAirPressure(i_VehicleInfoStr, i_Index);
+                        SetWheelAirPressure(i_VehicleInfoStr, i_Index);
                         break;
                 }
             }
+        }
+
+        public void UpdateEnergyPercentageLeft()
+        {
+            EnergyPercent = (EnergySource.CurrAmount / EnergySource.MaxAmount) * 100;
         }
 
         public void InitializeWheels(float i_MaxAirPressure, eVehicleWheels i_NumOfWheels)
@@ -129,16 +155,11 @@ namespace Ex03.GarageLogic
             m_Wheels = new Wheel[(int)i_NumOfWheels];
             for (int i = 0; i < (int)i_NumOfWheels; i++)
             {
-               m_Wheels[i] = new Wheel();
-            }
-
-            foreach (Wheel wheel in m_Wheels)
-            {
-                wheel.MaxAirPressure = i_MaxAirPressure;
+               m_Wheels[i] = new Wheel(i_MaxAirPressure);
             }
         }
 
-        private void updateWheelAirPressure(string i_VehicleInfoStr, int i_Index)
+        private void SetWheelAirPressure(string i_VehicleInfoStr, int i_Index)
         {
             float res;
             if (float.TryParse(i_VehicleInfoStr, out res))
@@ -161,7 +182,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        private void updateEnergyPersent(string i_VehicleInfoStr)
+        private void SetEnergyPersent(string i_VehicleInfoStr)
         {
             float res;
             if (float.TryParse(i_VehicleInfoStr, out res))
@@ -250,6 +271,25 @@ namespace Ex03.GarageLogic
             set
             {
                 m_Wheels = value;
+            }
+        }
+        public virtual void RegisterClass()
+        {
+            m_Wheels = new Wheel[1];
+            m_Wheels[0] = new Wheel(0);
+            m_Wheels[0].RegisterClass();
+            m_EnergySource.RegisterClass();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Vehicle)))
+            {
+                BsonClassMap.RegisterClassMap<Vehicle>(cm =>
+                {
+                    cm.MapField(c => c.m_LicesncePlate).SetElementName("LicensePlateNumber");
+                    cm.MapField(c => c.m_Model).SetElementName("ModelName");
+                    cm.MapField(c => c.m_EnergyPercent).SetElementName("PercentageOfEnergy");
+                    cm.MapField(c => c.m_EnergySource).SetElementName("EnergySource");
+                    cm.MapField(c => c.m_WheelsManufacturer).SetElementName("WheelsManufacturer");
+                    cm.MapField(c => c.m_Wheels).SetElementName("Wheels");
+                });
             }
         }
     }

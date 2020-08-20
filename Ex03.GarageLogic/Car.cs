@@ -2,6 +2,9 @@
 using System;
 using System.Linq;
 using System.Text;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace Ex03.GarageLogic
 {
@@ -50,7 +53,7 @@ namespace Ex03.GarageLogic
 
         public override void UpdateInfo(string i_Value, int i_Index)
         {
-            if(i_Index < NumOfPropeties)
+            if (i_Index < NumOfPropeties)
             {
                 base.UpdateInfo(i_Value, i_Index);
             }
@@ -76,7 +79,7 @@ namespace Ex03.GarageLogic
                 }
             }
         }
-        
+
         public void UpdateNumOfDoors(string i_NumOfDoors)
         {
             if (int.TryParse(i_NumOfDoors, out int res))
@@ -90,7 +93,7 @@ namespace Ex03.GarageLogic
                     m_NumOfDoors = number;
                 }
                 else
-                { 
+                {
                     throw new ValueOutOfRangeException(i_NumOfDoors, (int)first, (int)last);
                 }
             }
@@ -122,27 +125,39 @@ namespace Ex03.GarageLogic
                 throw new FormatException("Color is not supported");
             }
         }
-
-        public enum eColor
+        public override void RegisterClass()
         {
-            Red = 1,
-            White = 2,
-            Black = 3,
-            Silver = 4
-        }
+            base.RegisterClass();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Car)))
+            {
+                BsonClassMap.RegisterClassMap<Car>(cm =>
+                {
+                    cm.MapField(c => c.m_Color).SetElementName("Color").SetSerializer(new EnumSerializer<eColor>(BsonType.String));
+                    cm.MapField(c => c.m_NumOfDoors).SetElementName("NumberOfDoors").SetSerializer(new EnumSerializer<eNumOfDoors>(BsonType.String));
 
-        public enum eNumOfDoors
-        {
-            Two = 2,
-            Three = 3,
-            Four = 4,
-            Five = 5 
+                });
+            }
         }
+    }
+    public enum eColor
+    {
+        Red = 1,
+        White = 2,
+        Black = 3,
+        Silver = 4
+    }
 
-        public enum eCarInfo
-        {
-            color = 4,
-            numOfDoors 
-        }
+    public enum eNumOfDoors
+    {
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5
+    }
+
+    public enum eCarInfo
+    {
+        color = 4,
+        numOfDoors
     }
 }

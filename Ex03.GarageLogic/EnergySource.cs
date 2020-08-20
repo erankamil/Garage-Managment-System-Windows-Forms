@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace Ex03.GarageLogic
 {
@@ -69,6 +72,18 @@ namespace Ex03.GarageLogic
             set
             {
                 m_Type = value;
+            }
+        }
+        internal virtual void RegisterClass()
+        {
+            if (!BsonClassMap.IsClassMapRegistered(typeof(EnergySource)))
+            {
+                BsonClassMap.RegisterClassMap<EnergySource>(cm =>
+                {
+                    cm.MapField(c => c.m_CurrentAmount).SetElementName("AmountOfEnergyLeft");
+                    cm.MapField(c => c.m_MaxAmount).SetElementName("MaximumAmountOfEnergy");
+                    cm.MapField(c => c.m_Type).SetElementName("EnergyType").SetSerializer(new EnumSerializer<eEnergyType>(BsonType.String));
+                });
             }
         }
     }

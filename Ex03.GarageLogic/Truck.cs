@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace Ex03.GarageLogic
 {
-    internal class Trunk : Vehicle
+    internal class Truck : Vehicle
     {
         private const float k_MaxWheelAirPressure = 28f;
         private const float k_FuelMaxTank = 120f;
         private float m_CargoVolume;
         private bool m_HasHazardousmaterials;
 
-        public Trunk(string i_LicencePlate) : base(i_LicencePlate, eEnergyType.Fuel)
+        public Truck(string i_LicencePlate) : base(i_LicencePlate, eEnergyType.Fuel)
         {
             InitializeWheels(k_MaxWheelAirPressure, eVehicleWheels.Truck);
             EnergySource.MaxAmount = k_FuelMaxTank;
@@ -66,10 +69,10 @@ namespace Ex03.GarageLogic
                 {
                     switch (i_Index)
                     {
-                        case (int)eTrunkInfo.CargoVolume:
+                        case (int)eTruckInfo.CargoVolume:
                             UpdateCargoVolume(i_Value);
                             break;
-                        case (int)eTrunkInfo.HazardousMaterials:
+                        case (int)eTruckInfo.HazardousMaterials:
                             UpdateHazardousmaterials(i_Value);
                             break;
                         default:
@@ -127,9 +130,21 @@ namespace Ex03.GarageLogic
                 throw new FormatException("Invalid Input, Cargo Volume must be non negative number");
             }
         }
+        public override void RegisterClass()
+        {
+            base.RegisterClass();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Truck)))
+            {
+                BsonClassMap.RegisterClassMap<Truck>(cm =>
+                {
+                    cm.MapField(c => c.m_CargoVolume).SetElementName("CargoVolume");
+                    cm.MapField(c => c.m_HasHazardousmaterials).SetElementName("HasHazardousmaterials");
+                });
+            }
+        }
     }
 
-    public enum eTrunkInfo
+    public enum eTruckInfo
     {
         HazardousMaterials = 4,
         CargoVolume

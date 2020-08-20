@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace Ex03.GarageLogic
 {
@@ -24,7 +27,7 @@ namespace Ex03.GarageLogic
                     vehicleToCreate = new MotorCycle(i_LicencePlate, eEnergyType.Fuel);
                     break;
                 case eType.Trunk:
-                    vehicleToCreate = new Trunk(i_LicencePlate);
+                    vehicleToCreate = new Truck(i_LicencePlate);
                     break;
                 default:
                     break;
@@ -71,6 +74,21 @@ namespace Ex03.GarageLogic
                     }
             }
             return res;
+        }
+        public static void RegisterVehicles()
+        {
+            BsonSerializer.RegisterSerializer(typeof(DateTime), DateTimeSerializer.LocalInstance);
+            Vehicle newVehicle;
+            newVehicle = new MotorCycle("00000000", eEnergyType.Electric);
+            newVehicle.RegisterClass();
+            newVehicle = new MotorCycle("00000000", eEnergyType.Fuel);
+            newVehicle.RegisterClass();
+            newVehicle = new Car("00000000", eEnergyType.Electric);
+            newVehicle.RegisterClass();
+            newVehicle = new Car("00000000", eEnergyType.Fuel);
+            newVehicle.RegisterClass();
+            newVehicle = new Truck("00000000");
+            newVehicle.RegisterClass();
         }
     }
 

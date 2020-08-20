@@ -96,7 +96,6 @@
             this.Text = "Fuel Car";
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.AcceptButton = this.buttonCreateCustomerCard;
 
         }
 

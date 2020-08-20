@@ -93,6 +93,16 @@ namespace Ex03.WindowsFormUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap database_with_a_check_mark {
+            get {
+                object obj = ResourceManager.GetObject("database-with-a-check-mark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap energy {
             get {
                 object obj = ResourceManager.GetObject("energy", resourceCulture);
@@ -166,6 +176,16 @@ namespace Ex03.WindowsFormUI.Properties {
         internal static System.Drawing.Bitmap refuel {
             get {
                 object obj = ResourceManager.GetObject("refuel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap servers {
+            get {
+                object obj = ResourceManager.GetObject("servers", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

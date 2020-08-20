@@ -48,6 +48,12 @@
     <Compile Include="FormAddEnergy.Designer.cs">
       <DependentUpon>FormAddEnergy.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCutomerCard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,12 @@
     <Compile Include="FormExistCustomer.Designer.cs">
       <DependentUpon>FormExistCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShowVehicles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShowVehicles.Designer.cs">
+      <DependentUpon>FormShowVehicles.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormVehicleStates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,12 +79,11 @@
       <DependentUpon>FormVehicleStates.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="UI.cs" />
-    <Compile Include="FormLogin.cs">
+    <Compile Include="FormMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormLogin.Designer.cs">
-      <DependentUpon>FormLogin.cs</DependentUpon>
+    <Compile Include="FormMenu.Designer.cs">
+      <DependentUpon>FormMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="FormNewCustomer.cs">
       <SubType>Form</SubType>
@@ -129,17 +140,23 @@
     <EmbeddedResource Include="FormAddEnergy.resx">
       <DependentUpon>FormAddEnergy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCutomerCard.resx">
       <DependentUpon>FormCutomerCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormExistCustomer.resx">
       <DependentUpon>FormExistCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormLogin.resx">
-      <DependentUpon>FormLogin.cs</DependentUpon>
+    <EmbeddedResource Include="FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormNewCustomer.resx">
       <DependentUpon>FormNewCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShowVehicles.resx">
+      <DependentUpon>FormShowVehicles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVehicleStates.resx">
       <DependentUpon>FormVehicleStates.cs</DependentUpon>
@@ -187,6 +204,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fuel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\servers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database-with-a-check-mark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" />

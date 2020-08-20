@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace Ex03.GarageLogic
 {
@@ -132,6 +135,18 @@ namespace Ex03.GarageLogic
             else
             {
                 throw new FormatException("License Type is not supported");
+            }
+        }
+        public override void RegisterClass()
+        {
+            base.RegisterClass();
+            if (!BsonClassMap.IsClassMapRegistered(typeof(MotorCycle)))
+            {
+                BsonClassMap.RegisterClassMap<MotorCycle>(cm =>
+                {
+                    cm.MapField(c => c.m_EngineCapacity).SetElementName("EngineCapacity");
+                    cm.MapField(c => c.m_LicenseType).SetElementName("LicenseType").SetSerializer(new EnumSerializer<eLicenseType>(BsonType.String));
+                });
             }
         }
     }
