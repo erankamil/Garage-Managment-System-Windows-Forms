@@ -16,21 +16,10 @@ namespace Ex03.WindowsFormUI
         public FormShowVehicles(List<CustomerCard> i_CustomersToShow, string i_VehicleState)
         {
             InitializeComponent();
-            addVehiclesByState(i_CustomersToShow, i_VehicleState);
+            this.customerCardBindingSource.DataSource = i_CustomersToShow;
+            this.labelChosenState.Text = i_VehicleState;
         }
 
-        private void addVehiclesByState(List<CustomerCard> i_CustomersToShow, string i_VehicleState)
-        {
-            string title = i_VehicleState;
-            int index = 1;
-            LabelShowVehicles.Text = ($"Vehicle info by state: {i_VehicleState}");
-            foreach (CustomerCard currCustomer in i_CustomersToShow)
-            {
-                ListBoxVehicles.Items.Add($"{index}) Name: {currCustomer.Name}, License Number: {currCustomer.Vehicle.LicesncePlate}");
-                index++;
-            }
-        }
- 
 
         public Label LabelShowVehicles
         {

@@ -25,7 +25,7 @@ namespace Ex03.WindowsFormUI
             r_GarageManager = i_GarageManager;
             CustomerToTreat = i_CustomerToTreat;
             this.buttonDoAction.Text = i_ActionToDo;
-            this.LabelChooseOption.Text = "Choose the state you want to chage to:";
+            this.LabelChooseOption.Text = "Choose the state you want to change to:";
             this.buttonDoAction.Click += ButtonDoAction_Click;
             initializeVehicleStatesComboBox();
         }
@@ -65,6 +65,7 @@ namespace Ex03.WindowsFormUI
                     changeStateActions(vehicleState);
                 }
             }
+
         }
 
         private void changeStateActions(eVehicleState i_VehicleState)

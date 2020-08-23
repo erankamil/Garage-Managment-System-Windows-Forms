@@ -84,8 +84,12 @@ namespace Ex03.WindowsFormUI
         {
             FormExistCustomer formExistCustomer = new FormExistCustomer(r_GarageManager);
             formExistCustomer.ShowDialog();
+            
             if (formExistCustomer.DialogResult == DialogResult.OK)
             {
+                //FormCustomerDetails details = new FormCustomerDetails();
+                //details.CustomerCardBindingSource.DataSource = formExistCustomer.CustomerToTreat;
+                //details.ShowDialog();
                 string title = "Customer details";
 
                 CustomerCard CustomerToTreat = formExistCustomer.CustomerToTreat;

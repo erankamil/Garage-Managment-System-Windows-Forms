@@ -91,7 +91,6 @@ youre going to connent locally now";
             try
             {
                 var client = new MongoClient("mongodb+srv://dbUser:pa55w.rd@cluster0.ufirq.mongodb.net/Garage?retryWrites=true&w=majority");
-                client.ListDatabaseNames();
                 var DB = client.GetDatabase(k_DBName);
                 Collection = DB.GetCollection<BsonDocument>(k_CollectionName);
                 CustomerCard customer = new CustomerCard();

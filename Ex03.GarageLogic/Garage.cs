@@ -6,6 +6,7 @@ using MongoDB.Driver;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using System.Linq;
 
 namespace Ex03.GarageLogic
 {
@@ -189,8 +190,9 @@ namespace Ex03.GarageLogic
         public bool IsValidVehicleState(string i_VehicleState, out eVehicleState o_VehicleState)
         {
             bool isValid = true;
+            o_VehicleState = eVehicleState.InRepair;
 
-            if (Enum.TryParse(i_VehicleState, out o_VehicleState) == false)
+            if (Enum.IsDefined(typeof(eVehicleState), i_VehicleState) == false)
             {
                 int choiceNumeric;
                 if(int.TryParse(i_VehicleState, out choiceNumeric) == false)
@@ -199,9 +201,13 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_VehicleState, 1, 4);
+                    if (isInStateTypeRange(choiceNumeric) == false)
+                    {
+                        throw new ValueOutOfRangeException(i_VehicleState, 1, 4);
+                    }
                 }
             }
+            Enum.TryParse(i_VehicleState, out o_VehicleState);
 
             return isValid;
         }
@@ -209,7 +215,9 @@ namespace Ex03.GarageLogic
         public bool IsFuelType(string i_TypeStr, out eFuelType o_FuelType)
         {
             bool isValid = true;
-            if (Enum.TryParse(i_TypeStr, out o_FuelType) == false)
+            o_FuelType = eFuelType.Octan95;
+
+            if (Enum.IsDefined(typeof(eVehicleState), i_TypeStr) == false)
             {
                 int choiceNumeric;
                 if (int.TryParse(i_TypeStr, out choiceNumeric) == false)
@@ -218,13 +226,33 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException(i_TypeStr, 1, 4);
+                    if (isInFuelTypeRange(choiceNumeric) == false)
+                    {
+                        throw new ValueOutOfRangeException(i_TypeStr, 1, 4);
+                    }
                 }
+            }
+            else
+            {
+                Enum.TryParse(i_TypeStr, out o_FuelType);
             }
 
             return isValid;
         }
 
+        private bool isInFuelTypeRange(int i_TypeStr)
+        {
+            eFuelType lastFuelType = Enum.GetValues(typeof(eFuelType)).Cast<eFuelType>().Last();
+            eFuelType firstFuelType = Enum.GetValues(typeof(eFuelType)).Cast<eFuelType>().Last();
+            return (i_TypeStr >= (int)firstFuelType && i_TypeStr <= (int)lastFuelType);
+        }
+
+        private bool isInStateTypeRange(int i_VehicleState)
+        {
+            eVehicleState lastFuelType = Enum.GetValues(typeof(eVehicleState)).Cast<eVehicleState>().Last();
+            eVehicleState firstFuelType = Enum.GetValues(typeof(eVehicleState)).Cast<eVehicleState>().First();
+            return (i_VehicleState >= (int)firstFuelType && i_VehicleState <= (int)lastFuelType);
+        }
 
         public string[] GetFuelTypes()
         {

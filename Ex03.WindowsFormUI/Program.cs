@@ -17,7 +17,7 @@ namespace Ex03.WindowsFormUI
             fromLogin.ShowDialog();
 
             FormMenu menu = new FormMenu(fromLogin.Collection, fromLogin.IsConnected);
-            menu.ShowDialog();  
+            menu.ShowDialog(); 
         }
     }
 }
