@@ -217,7 +217,7 @@ namespace Ex03.GarageLogic
             bool isValid = true;
             o_FuelType = eFuelType.Octan95;
 
-            if (Enum.IsDefined(typeof(eVehicleState), i_TypeStr) == false)
+            if (Enum.IsDefined(typeof(eFuelType), i_TypeStr) == false)
             {
                 int choiceNumeric;
                 if (int.TryParse(i_TypeStr, out choiceNumeric) == false)

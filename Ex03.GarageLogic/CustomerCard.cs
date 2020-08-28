@@ -14,9 +14,6 @@ namespace Ex03.GarageLogic
         private Vehicle m_Vehicle;
         private string r_Id;
 
-        //[BsonId]
-        //public Guid ObjectID { get; set; }
-
 
         public CustomerCard(Vehicle i_Vehicle, string i_Name, string i_Phone)
         {
@@ -60,6 +57,7 @@ namespace Ex03.GarageLogic
                 m_Name = value;
             }
         }
+
 
         public eVehicleState VehicleState
         {

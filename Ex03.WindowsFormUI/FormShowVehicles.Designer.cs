@@ -179,7 +179,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.ClientSize = new System.Drawing.Size(406, 311);
+            this.ClientSize = new System.Drawing.Size(389, 311);
             this.Controls.Add(this.labelChosenState);
             this.Controls.Add(energyPercentLabel);
             this.Controls.Add(this.energyPercentLabel1);

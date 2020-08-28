@@ -81,7 +81,7 @@ namespace Ex03.WindowsFormUI
         private void showVehiclesActions(eVehicleState i_VehicleState)
         {
             List<CustomerCard> customers = r_GarageManager.GetVehiclesByState(i_VehicleState);
-            if (customers != null)
+            if (customers.Count > 0)
             {
                 FormShowVehicles formShowVehicles = new FormShowVehicles(customers, ComboBoxVehicleStates.Text);
                 formShowVehicles.ShowDialog();
