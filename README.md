@@ -13,8 +13,14 @@ A windows desktop app implemented with windows forms, C# .NET.
 6) Charge vehicle (for electric vheicles).
 7) Customer card details.
 
-some screen shots:
+High level app description:
+![Uploading HighLevel.png…]()
 
+Sequence Diagram for AddNewVehicle senario:
+![Uploading AddNewVehicle_SD.png…]()
+
+
+some screen shots:
 ![login](https://user-images.githubusercontent.com/62330191/107613899-eed4b400-6c51-11eb-9d8f-3d955cfa3c2a.PNG)
 
 ![main](https://user-images.githubusercontent.com/62330191/107613901-ef6d4a80-6c51-11eb-94a8-27cba8aada8b.PNG)
