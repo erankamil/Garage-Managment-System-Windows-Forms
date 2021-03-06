@@ -21,17 +21,31 @@ namespace Ex03.WindowsFormUI
         private const string k_CollectionName = "Customers";
         private const string k_DBName = "Garage";
         private const int k_NumberOfTries = 3;
-        private  int s_FaliedLogins = 0;
-
-        public IMongoCollection<BsonDocument>  Collection { get; set; }
-
-        public bool IsConnected { get; set; }
+        private static int s_FaliedLogins = 0;
+        private IMongoCollection<BsonDocument> m_Collection;
+        public bool m_IsConnected;
 
         public FormLogin()
         {
             InitializeComponent();
             this.buttonLocal.Click += ButtonLocal_Click;
             this.buttonToDB.Click += ButtonToDB_Click;
+        }
+
+        public IMongoCollection<BsonDocument> Collection
+        {
+            get
+            {
+                return m_Collection;
+            }
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return m_IsConnected;
+            }
         }
 
         private void ButtonToDB_Click(object sender, EventArgs e)
@@ -72,7 +86,7 @@ namespace Ex03.WindowsFormUI
 youre going to connent locally now";
                         string title = "Login notification";
                         MessageBox.Show(message, title);
-                        IsConnected = false;
+                        m_IsConnected = false;
                         this.Close();
                     }
                     this.textBoxUserName.Text = this.textBoxPassword.Text = string.Empty;
@@ -92,14 +106,14 @@ youre going to connent locally now";
             {
                 var client = new MongoClient("mongodb+srv://dbUser:pa55w.rd@cluster0.ufirq.mongodb.net/Garage?retryWrites=true&w=majority");
                 var DB = client.GetDatabase(k_DBName);
-                Collection = DB.GetCollection<BsonDocument>(k_CollectionName);
+                m_Collection = DB.GetCollection<BsonDocument>(k_CollectionName);
                 CustomerCard customer = new CustomerCard();
                 customer.RegisterClass();
-                IsConnected = true;
+                m_IsConnected = true;
             }
             catch 
             {
-                IsConnected = false;
+                m_IsConnected = false;
                 MessageBox.Show("Cannot connet to DB for some reason..");
             }
 

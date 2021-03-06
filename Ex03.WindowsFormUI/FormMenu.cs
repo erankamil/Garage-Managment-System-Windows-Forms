@@ -68,16 +68,7 @@ namespace Ex03.WindowsFormUI
 
         private void ButtonExit_Click(object sender, EventArgs e)
         {
-            //string msg = "Are you sure you want to exit?";
-
-            //MessageBoxButtons question = MessageBoxButtons.YesNo;
-            //this.Hide();
-            //DialogResult exithResult = MessageBox.Show(msg, "Exit", question);
-
-            //if (exithResult == DialogResult.Yes)
-            //{
             MessageBox.Show("Good Bye !! hope to see you soon");
- 
         }
 
         private void ButtonShowCutomerCard_Click(object sender, EventArgs e)
@@ -87,9 +78,7 @@ namespace Ex03.WindowsFormUI
             
             if (formExistCustomer.DialogResult == DialogResult.OK)
             {
-                //FormCustomerDetails details = new FormCustomerDetails();
-                //details.CustomerCardBindingSource.DataSource = formExistCustomer.CustomerToTreat;
-                //details.ShowDialog();
+        
                 string title = "Customer details";
 
                 CustomerCard CustomerToTreat = formExistCustomer.CustomerToTreat;

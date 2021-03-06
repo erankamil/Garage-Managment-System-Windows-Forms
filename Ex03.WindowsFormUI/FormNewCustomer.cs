@@ -34,18 +34,6 @@ namespace Ex03.WindowsFormUI
             }
         }
 
-        //private void ButtonAddNewVehicle_Click(object sender, EventArgs e)
-        //{
-        //    if (DialogResult == DialogResult.OK)
-        //    {
-        //        Hide();
-        //        newCustomerActions();
-        //    }
-
-        //    ComboBoxVehicleType.Text = string.Empty;
-        //    textBoxLicencePlate.Clear();
-        //}
-
         private void newCustomerActions()
         {
             Vehicle vehicleToCreate = GarageLogic.VehicleCreator.Create(textBoxLicencePlate.Text, ComboBoxVehicleType.Text);
