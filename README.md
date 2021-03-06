@@ -14,10 +14,10 @@ A windows desktop app implemented with windows forms, C# .NET.
 7) Customer card details.
 
 High level app description:
-![Uploading HighLevel.png…]()
+![HighLevel](https://user-images.githubusercontent.com/62330191/110217138-20d8df00-7ebb-11eb-95db-8148204e22ff.png)
 
 Sequence Diagram for AddNewVehicle senario:
-![Uploading AddNewVehicle_SD.png…]()
+![AddNewVehicle_SD](https://user-images.githubusercontent.com/62330191/110217123-11f22c80-7ebb-11eb-87b0-5911f3608871.png)
 
 
 some screen shots:
